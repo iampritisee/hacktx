@@ -1,0 +1,160 @@
+{
+  "metadata": {
+    "track": "monza",
+    "session": "fp2",
+    "tyre_compound": "c3",
+    "ambient_temp_c": 27,
+    "track_temp_c": 39,
+    "wind_kmh": 12,
+    "rookie_stability_priority": 0.75,
+    "parc_ferme_safe": true
+  },
+  "targets": {
+    "balance_goal": {
+      "entry_oversteer_index": -0.10,
+      "mid_oversteer_index": -0.05,
+      "exit_oversteer_index": -0.05
+    },
+    "stability_goal": {
+      "brake_locking_risk_front": 0.15,
+      "traction_loss_index": 0.20,
+      "porpoising_amplitude_mm": 0.0
+    },
+    "tyre_goal": {
+      "core_temp_target_c": 95,
+      "surface_temp_target_c": 100,
+      "wear_balance_delta_pct_rl_rr": 0.0
+    }
+  },
+  "setup": {
+    "aero": {
+      "front_wing_flap_deg": -1.5,
+      "rear_wing_main_deg": 10.0,
+      "beam_wing_slot_gap_mm": 9.0,
+      "aero_balance_percent_front_at_250kph": 44.5
+    },
+    "ride_and_suspension": {
+      "ride_height_front_mm": 33,
+      "ride_height_rear_mm": 68,
+      "rake_deg": 1.2,
+      "springs_n_per_mm": {
+        "fl": 145,
+        "fr": 145,
+        "rl": 160,
+        "rr": 160
+      },
+      "antiroll_bar_scale_0_10": {
+        "front": 6,
+        "rear": 4
+      },
+      "dampers_clicks": {
+        "low_speed_bump": 6,
+        "low_speed_rebound": 8,
+        "high_speed_bump": 4,
+        "high_speed_rebound": 6
+      },
+      "heave_spring_n_per_mm": {
+        "front": 800,
+        "rear": 900
+      },
+      "kerb_strategy": "soften_high_speed_bump_if_kerb_strike>0.4"
+    },
+    "alignment": {
+      "front_camber_deg": -3.4,
+      "rear_camber_deg": -2.0,
+      "front_toe_out_deg_total": 0.10,
+      "rear_toe_in_deg_total": 0.20,
+      "steering_ratio": 12.5
+    },
+    "tyres": {
+      "pressures_psi": {
+        "fl": 22.0,
+        "fr": 22.0,
+        "rl": 21.0,
+        "rr": 21.0
+      },
+      "start_purge_temp_c": 70,
+      "bleed_strategy": "hold_targets_for_+15c_track_rise"
+    },
+    "brakes": {
+      "brake_bias_percent_front": 55.8,
+      "brake_migration_map": 3,
+      "engine_braking_level": 5,
+      "brake_duct_blank_percent_front": 35,
+      "brake_duct_blank_percent_rear": 30
+    },
+    "differential_and_power": {
+      "diff_entry_percent": 22,
+      "diff_mid_percent": 30,
+      "diff_exit_percent": 40,
+      "throttle_map": "progressive_2",
+      "ers_deploy_mode": "balanced",
+      "ers_corner_deployment": {
+        "t1": 0.0,
+        "t2": 0.2,
+        "t3": 0.0,
+        "lesmo1_exit": 0.6,
+        "lesmo2_exit": 0.8,
+        "ascari_exit": 1.0,
+        "parabolica_exit": 1.0
+      },
+      "harvest_bias_front_axle": 0.45
+    },
+    "cooling": {
+      "radiator_blank_percent": 20,
+      "oil_cooler_blank_percent": 10
+    },
+    "fuel_and_shift": {
+      "start_fuel_kg": 18.5,
+      "lift_and_coast_meters_per_corner": 20,
+      "shift_map": "rookie_safety_early_upshift",
+      "upshift_rpm": 11700,
+      "downshift_rpm": 8500
+    },
+    "controls": {
+      "throttle_pedal_linearity": 0.85,
+      "brake_pedal_linearity": 0.90,
+      "steering_weight_preference": "medium"
+    }
+  },
+  "predicted_performance": {
+    "ideal_lap_time_s": 81.342,
+    "delta_vs_baseline_s": -0.460,
+    "stint_projection": {
+      "laps": 15,
+      "avg_deg_pct_per_lap_front": 1.8,
+      "avg_deg_pct_per_lap_rear": 1.7,
+      "tyre_temp_peak_c": 101
+    },
+    "confidence_for_rookie": 0.88
+  },
+  "rationale": [
+    {
+      "issue": "entry under-rotation & front locking in heavy stops",
+      "metrics": {
+        "brake_locking_risk_front": 0.32,
+        "oversteer_index.entry": 0.12
+      },
+      "changes": ["moved brake_bias to 55.8%", "brake_migration_map=3", "front wing -1.5Â°"],
+      "expected_effect": "reduce entry rotation spike, stabilize braking, mild entry understeer"
+    },
+    {
+      "issue": "exit traction losses out of slow corners",
+      "metrics": {
+        "traction_loss_index": 0.37,
+        "deployment_wheelspin_risk": 0.28
+      },
+      "changes": ["diff_exit 40%", "throttle_map progressive_2", "ERS trimmed at T2/T3, increased on long exits"],
+      "expected_effect": "cleaner throttle pick-up, less rear slip, better rookie confidence"
+    },
+    {
+      "issue": "porpoising/bottoming on straights with low rear",
+      "metrics": {
+        "porpoising_amplitude": 0.9,
+        "ride_height_margin_min": 2.0
+      },
+      "changes": ["rear ride height +2 mm", "beam wing gap 9 mm"],
+      "expected_effect": "remove floor strikes, preserve straight-line efficiency"
+    }
+  ]
+}
