@@ -44,7 +44,8 @@ def get_ideal_config():
 
   result = compute_setup_from_doc(calc_doc)     # function from poc
 
-  return jsonify(result.get("optimized_setup", {}))       # return result
+  print(result)
+  return jsonify(result)       # return result
 
 
 
