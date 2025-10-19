@@ -1,8 +1,9 @@
 'use client'
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { ChevronRight, User, Calendar, LogOut, Play, CheckCircle, Settings } from 'lucide-react';
 import ThreeScene from './components/ThreeScene';
 import Simulation from './components/simulation.jsx';
+import axios from 'axios';
 
 export default function Page() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -17,6 +18,7 @@ export default function Page() {
   const [liveComments, setLiveComments] = useState([]);
   const [newComment, setNewComment] = useState('');
   const [expandedRaces, setExpandedRaces] = useState({});
+  const [overlayLabels, setOverlayLabels] = useState({});
   const [livePositions, setLivePositions] = useState([
     { position: 1, driver: 'M. Verstappen', team: 'Red Bull', interval: 'Leader' },
     { position: 2, driver: 'L. Norris', team: 'McLaren', interval: '+2.145' },
@@ -163,6 +165,27 @@ const drivers = [
     setRaceStarted(false);
   };
 
+  useEffect(() => {
+    if (startIndividual) {
+      axios.post('http://127.0.0.1:5000/dataForConfig', {
+        rookie_stability_priority: preferences.stability_bias,
+        steering_weight_preference: preferences.steering_weight_preference,
+        throttle_pedal_linearity: preferences.throttle_linearity,
+        brake_pedal_linearity: preferences.brake_pedal_linearity
+      }).then((response) => {
+        console.log(response);
+        setOverlayLabels({
+          fl_tire: String("Brake Bias: " + response.data?.['brakes']['brake_bias_percent_front'] + "\n" + "Bleed Strategy: " + response.data?.['tyres']['bleed_strategy'] + "\n" + "Pressure: " + response.data?.['tyres']['pressures_psi']['fl'] ?? 'Front Left Tire'),
+          fr_tire: String("Brake Bias: " + response.data?.['brakes']['brake_bias_percent_front'] + "\n" + "Bleed Strategy: " + response.data?.['tyres']['bleed_strategy'] + "\n" + "Pressure: " + response.data?.['tyres']['pressures_psi']['fr'] ?? 'Front Right Tire'),
+          front_wing: String("Front Wing Flap: " + response.data?.['aero']['front_wing_flap_deg'] + "\n" + "Rear Wing Main: " + response.data?.['aero']['rear_wing_main_deg'] ?? 'Front Wing'),
+          rear_wing: String("Rear Wing Main: " + response.data?.['aero']['rear_wing_main_deg'] ?? 'Rear Wing'),
+        });
+      }).catch((error) => {
+        console.error(error);
+      });
+
+    }
+  }, [startIndividual]);
   if (!isLoggedIn) {
     return (
       <div className="min-h-screen bg-gradient-to-br from-slate-900 via-slate-800 to-blue-900 flex items-center justify-center p-4">
@@ -537,7 +560,7 @@ const drivers = [
             <div className="bg-slate-800/90 backdrop-blur-lg rounded-2xl p-8 border border-blue-500/20">
               <h2 className="text-2xl font-bold text-white mb-6">Configuration Results</h2>
               <div className="bg-slate-700/50 rounded-xl p-8">
-                <ThreeScene />
+                <ThreeScene labels={overlayLabels} />
               </div>
             </div>
           </div>

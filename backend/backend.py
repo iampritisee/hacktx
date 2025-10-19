@@ -8,9 +8,15 @@ from firebase_admin import credentials
 
 from poc import compute_setup_from_doc
 from health import generate_report
+from flask_cors import CORS
 
+CORS(app)
 
-cred = credentials.Certificate("../serviceAccountKey.json")
+import os
+
+basedir = os.path.dirname((os.path.dirname(os.path.abspath(__file__))))
+
+cred = credentials.Certificate(os.path.join(basedir, "serviceAccountKey.json"))
 firebase_admin.initialize_app(cred)
 
 db = firestore.client()
