@@ -22,6 +22,5 @@ def give_feedback():
   # return jsonify(result)      # give feedback
 
 
-
 if __name__ == "__main__":
   app.run(debug=True)

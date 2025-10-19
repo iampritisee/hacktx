@@ -28,8 +28,8 @@ const ThreeScene: React.FC = () => {
     // --- Container sizing ---
     const container = containerRef.current;
     container.style.position = 'relative';
-    container.style.width = '100vw';
-    container.style.height = '100vh';
+    container.style.width = '74vw';
+    container.style.height = '74vh';
     const width = container.clientWidth;
     const height = container.clientHeight;
 
