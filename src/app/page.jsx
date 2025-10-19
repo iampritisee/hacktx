@@ -537,41 +537,41 @@ const drivers = [
                       <rect x="28" y="32" width="8" height="4" rx="1" fill="#94a3b8"/>
                     </svg>
                   </div>
-                  <h3 className="text-2xl font-bold text_white mb-1">{selectedDriver.name}</h3>
+                  <h3 className="text-2xl font-bold text-white mb-1">{selectedDriver.name}</h3>
                   <p className="text-gray-400 mb-4">Car #{selectedDriver.number}</p>
                 </div>
                 <div className="space-y-3 text-sm">
-                  <div className="flex items-center justify_between py-2 border-b border-slate-700/50">
+                  <div className="flex items-center justify-between py-2 border-b border-slate-700/50">
                     <span className="text-gray-400">Age</span>
                     <span className="text-white font-semibold">{selectedDriver.age} years</span>
                   </div>
-                  <div className="flex items-center justify_between py-2 border-b border-slate-700/50">
+                  <div className="flex items-center justify-between py-2 border-b border-slate-700/50">
                     <span className="text-gray-400">Experience</span>
                     <span className="text-white font-semibold">{selectedDriver.years}</span>
                   </div>
-                  <div className="flex items-center justify_between py-2 border-b border-slate-700/50">
+                  <div className="flex items-center justify-between py-2 border-b border-slate-700/50">
                     <span className="text-gray-400">Total Races</span>
                     <span className="text-white font-semibold">{selectedDriver.races}</span>
                   </div>
-                  <div className="flex items-center justify_between py-2 border-b border-slate-700/50">
+                  <div className="flex items-center justify-between py-2 border-b border-slate-700/50">
                     <span className="text-gray-400">Career Points</span>
-                    <span className="text-blue-400 font-semibold">{selectedDriver.points}</span>
+                    <span className="text-white font-semibold">{selectedDriver.points}</span>
                   </div>
-                  <div className="flex items-center justify_between py-2 border-b border-slate-700/50">
+                  <div className="flex items-center justify-between py-2 border-b border-slate-700/50">
                     <span className="text-gray-400">Podiums</span>
                     <span className="text-white font-semibold">{selectedDriver.podiums}</span>
                   </div>
-                  <div className="flex items-center justify_between py-2 border-b border-slate-700/50">
+                  <div className="flex items-center justify-between py-2 border-b border-slate-700/50">
                     <span className="text-gray-400">Championships</span>
                     <span className="text-white font-semibold">{selectedDriver.championships}</span>
                   </div>
-                  <div className="flex items-center justify_between py-2">
+                  <div className="flex items-center justify-between py-2">
                     <span className="text-gray-400">Top Speed</span>
                     <span className="text-white font-semibold">{selectedDriver.topSpeed}</span>
                   </div>
-                  <div className="flex items-center justify_between py-2">
+                  <div className="flex items-center justify-between py-2">
                     <span className="text-gray-400">Average Position</span>
-                    <span className="text-blue-400 font-semibold">{selectedDriver.avgPosition}</span>
+                    <span className="text-white font-semibold">{selectedDriver.avgPosition}</span>
                   </div>
                 </div>
               </div>
