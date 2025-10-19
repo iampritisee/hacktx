@@ -177,7 +177,11 @@ const drivers = [
         setOverlayLabels({
           fl_tire: String("Brake Bias: " + response.data?.['brakes']['brake_bias_percent_front'] + "\n" + "Bleed Strategy: " + response.data?.['tyres']['bleed_strategy'] + "\n" + "Pressure: " + response.data?.['tyres']['pressures_psi']['fl'] ?? 'Front Left Tire'),
           fr_tire: String("Brake Bias: " + response.data?.['brakes']['brake_bias_percent_front'] + "\n" + "Bleed Strategy: " + response.data?.['tyres']['bleed_strategy'] + "\n" + "Pressure: " + response.data?.['tyres']['pressures_psi']['fr'] ?? 'Front Right Tire'),
-          front_wing: String("Front Wing Flap: " + response.data?.['aero']['front_wing_flap_deg'] + "\n" + "Rear Wing Main: " + response.data?.['aero']['rear_wing_main_deg'] ?? 'Front Wing'),
+          rl_tire: String("Brake Bias: " + (1 - response.data?.['brakes']['brake_bias_percent_front']) + "\n" + "Bleed Strategy: " + response.data?.['tyres']['bleed_strategy'] + "\n" + "Pressure: " + response.data?.['tyres']['pressures_psi']['rl'] ?? 'Rear Left Tire'),
+          rr_tire: String("Brake Bias: " + (1 - response.data?.['brakes']['brake_bias_percent_front']) + "\n" + "Bleed Strategy: " + response.data?.['tyres']['bleed_strategy'] + "\n" + "Pressure: " + response.data?.['tyres']['pressures_psi']['rr'] ?? 'Rear Right Tire'),
+          differential: String("Differential: " + response.data?.['differential_and_power']['diff_entry_percent'] + "\n" + "Ers Deployment: " + response.data?.['differential_and_power']['ers_deploy_mode'] + "\n" + "Throttle Map: " + response.data?.['differential_and_power']['throttle_map'] ?? 'Differential'),
+          steering: String("Steering Ratio: " + response.data?.['alignment']['steering_ratio'] ?? 'Steering'),
+          front_wing: String("Front Wing Flap: " + response.data?.['aero']['front_wing_flap_deg'] + "\n" ?? 'Front Wing'),
           rear_wing: String("Rear Wing Main: " + response.data?.['aero']['rear_wing_main_deg'] ?? 'Rear Wing'),
         });
       }).catch((error) => {
@@ -188,11 +192,14 @@ const drivers = [
   }, [startIndividual]);
   if (!isLoggedIn) {
     return (
+
       <div className="min-h-screen bg-gradient-to-br from-slate-900 via-slate-800 to-blue-900 flex items-center justify-center p-4">
         <div className="absolute inset-0 opacity-10">
           <div className="absolute top-0 left-0 w-full h-2 bg-gradient-to-r from-blue-500 via-blue-400 to-blue-500"></div>
           <div className="absolute bottom-0 left-0 w-full h-2 bg-gradient-to-r from-blue-500 via-blue-400 to-blue-500"></div>
         </div>
+
+      {/*<ThreeScene labels={overlayLabels} />*/}
         
         <div className="relative z-10 w-full max-w-md">
           <div className="bg-slate-800/90 backdrop-blur-lg rounded-2xl shadow-2xl p-8 border border-blue-500/20">
@@ -347,7 +354,7 @@ const drivers = [
           
           <div className="flex gap-1 mt-4">
             <button
-              onClick={() => setCurrentPage('profile')}
+              onClick={() => {setCurrentPage('profile'); setStartIndividual(false)}}
               className={`px-6 py-2 font-medium transition ${
                 currentPage === 'profile'
                   ? 'text-white border-b-2 border-blue-500'

@@ -53,7 +53,6 @@ def get_ideal_config():
   return jsonify(result.get("optimized_setup", {}))       # return result
 
 
-
 @app.route('/feedback')
 def give_feedback():
 

@@ -15,8 +15,13 @@ type MarkerDef = {
 let MARKERS: MarkerDef[] = [
   { id: 'fl_tire', label: 'Front Left Tire', color: '#00d0ff', position: [0.3, 1, 0.5] },
   { id: 'fr_tire', label: 'Front Right Tire', color: '#00d0ff', position: [-0.3, 1, 0.5] },
+  { id: 'rl_tire', label: 'Rear Left Tire', color: '#00d0ff', position: [0.3, 1, -0.7] },
+  { id: 'rr_tire', label: 'Rear Right Tire', color: '#00d0ff', position: [-0.3, 1, -0.7] },
   { id: 'front_wing', label: 'Front Wing', color: '#ff6b00', position: [0, 1, .8] },
   { id: 'rear_wing', label: 'Rear Wing', color: '#ff6b00', position: [0, 1.3, -.8] },
+  { id: 'steering', label: 'Steering', color: '#ff6b00', position: [0, 1.2, .12] },
+  {id: 'differential', label: 'Differential', color: '#ff6b00', position: [0, 1.1, -0.5] },
+
 ];
 
 const ThreeScene: React.FC<{ labels?: Record<string, string> }> = ({ labels = {} }) => {
