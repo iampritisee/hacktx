@@ -104,26 +104,26 @@ const drivers = [
   ];
 
   const races = [
-    { id: 1, name: 'United States Grand Prix', date: 'Oct 17-19', circuit: 'Circuit of the Americas', laps: 56, sprint: true, trackimage: '/tracks/austin.png'},
-    { id: 2, name: 'Singapore Grand Prix', date: 'Oct 3-5', circuit: 'Marina Bay Street Circuit', laps: 62, trackimage: '/tracks/marina bay.png' },
-    { id: 3, name: 'Azerbaijan Grand Prix', date: 'Sep 19-21', circuit: 'Baku City Circuit', laps: 51, trackimage: '/tracks/azerbaijan.png' },
-    { id: 4, name: 'Italian Grand Prix', date: 'Sep 5-7', circuit: 'Autodromo Nazionale di Monza', laps: 53, trackimage: '/tracks/italymonza.png' },
-    { id: 5, name: 'Dutch Grand Prix', date: 'Aug 29-31', circuit: 'Circuit Zandvoort', laps: 72, trackimage: '/tracks/belgium.png'},
-    { id: 6, name: 'Hungarian Grand Prix', date: 'Aug 1-3', circuit: 'Hungaroring', laps: 70 },
-    { id: 7, name: 'Belgian Grand Prix', date: 'Jul 25-27', circuit: 'Circuit de Spa-Francorchamps', laps: 44, sprint: true },
-    { id: 8, name: 'British Grand Prix', date: 'Jul 4-6', circuit: 'Silverstone Circuit', laps: 52 },
-    { id: 9, name: 'Austrian Grand Prix', date: 'Jun 27-29', circuit: 'Red Bull Ring', laps: 71 },
-    { id: 10, name: 'Canadian Grand Prix', date: 'Jun 13-15', circuit: 'Circuit Gilles Villeneuve', laps: 70 },
-    { id: 11, name: 'Spanish Grand Prix', date: 'May 30-Jun 1', circuit: 'Circuit de Barcelona-Catalunya', laps: 66 },
-    { id: 12, name: 'Monaco Grand Prix', date: 'May 23-25', circuit: 'Circuit de Monaco', laps: 78 },
-    { id: 13, name: 'Emilia Romagna Grand Prix', date: 'May 16-18', circuit: 'Autodromo Enzo e Dino Ferrari', laps: 63 },
-    { id: 14, name: 'Miami Grand Prix', date: 'May 2-4', circuit: 'Miami International Autodrome', laps: 57, sprint: true },
-    { id: 15, name: 'Saudi Arabian Grand Prix', date: 'Apr 18-20', circuit: 'Jeddah Corniche Circuit', laps: 50 },
-    { id: 16, name: 'Bahrain Grand Prix', date: 'Apr 11-13', circuit: 'Bahrain International Circuit', laps: 57 },
-    { id: 17, name: 'Japanese Grand Prix', date: 'Apr 4-6', circuit: 'Suzuka Circuit', laps: 53 },
-    { id: 18, name: 'Chinese Grand Prix', date: 'Mar 21-23', circuit: 'Shanghai International Circuit', laps: 56, sprint: true },
-    { id: 19, name: 'Australian Grand Prix', date: 'Mar 14-16', circuit: 'Albert Park Circuit', laps: 58 },
-    ];
+    { id: 1, name: 'United States Grand Prix', date: 'Oct 17-19', circuit: 'Circuit of the Americas', laps: 56, sprint: true, trackimage: '/austin.png' },
+    { id: 2, name: 'Singapore Grand Prix', date: 'Oct 3-5', circuit: 'Marina Bay Street Circuit', laps: 62, trackimage: '/marina bay.png' },
+    { id: 3, name: 'Azerbaijan Grand Prix', date: 'Sep 19-21', circuit: 'Baku City Circuit', laps: 51, trackimage: '/azerbaijan.png' },
+    { id: 4, name: 'Italian Grand Prix', date: 'Sep 5-7', circuit: 'Autodromo Nazionale di Monza', laps: 53, trackimage: '/italymonza.png' },
+    { id: 5, name: 'Dutch Grand Prix', date: 'Aug 29-31', circuit: 'Circuit Zandvoort', laps: 72, trackimage: '/netherlands.png' },
+    { id: 6, name: 'Hungarian Grand Prix', date: 'Aug 1-3', circuit: 'Hungaroring', laps: 70, trackimage: '/hungary.png' },
+    { id: 7, name: 'Belgian Grand Prix', date: 'Jul 25-27', circuit: 'Circuit de Spa-Francorchamps', laps: 44, sprint: true, trackimage: '/belgium.png' },
+    { id: 8, name: 'British Grand Prix', date: 'Jul 4-6', circuit: 'Silverstone Circuit', laps: 52, trackimage: '/great britain.png' },
+    { id: 9, name: 'Austrian Grand Prix', date: 'Jun 27-29', circuit: 'Red Bull Ring', laps: 71, trackimage: '/austria.png' },
+    { id: 10, name: 'Canadian Grand Prix', date: 'Jun 13-15', circuit: 'Circuit Gilles Villeneuve', laps: 70, trackimage: '/canada.png' },
+    { id: 11, name: 'Spanish Grand Prix', date: 'May 30-Jun 1', circuit: 'Circuit de Barcelona-Catalunya', laps: 66, trackimage: '/spain.png' },
+    { id: 12, name: 'Monaco Grand Prix', date: 'May 23-25', circuit: 'Circuit de Monaco', laps: 78, trackimage: '/monaco.png' },
+    { id: 13, name: 'Emilia Romagna Grand Prix', date: 'May 16-18', circuit: 'Autodromo Enzo e Dino Ferrari', laps: 63, trackimage: '/italy.png' },
+    { id: 14, name: 'Miami Grand Prix', date: 'May 2-4', circuit: 'Miami International Autodrome', laps: 57, sprint: true, trackimage: '/miami.png' },
+    { id: 15, name: 'Saudi Arabian Grand Prix', date: 'Apr 18-20', circuit: 'Jeddah Corniche Circuit', laps: 50, trackimage: '/jeddah.png' },
+    { id: 16, name: 'Bahrain Grand Prix', date: 'Apr 11-13', circuit: 'Bahrain International Circuit', laps: 57, trackimage: '/bahrain.png' },
+    { id: 17, name: 'Japanese Grand Prix', date: 'Apr 4-6', circuit: 'Suzuka Circuit', laps: 53, trackimage: '/japan.png' },
+    { id: 18, name: 'Chinese Grand Prix', date: 'Mar 21-23', circuit: 'Shanghai International Circuit', laps: 56, sprint: true, trackimage: '/china.png' },
+    { id: 19, name: 'Australian Grand Prix', date: 'Mar 14-16', circuit: 'Albert Park Circuit', laps: 58, trackimage: '/australia.png' },
+  ];
 
   const handleLogin = (e) => {
     e.preventDefault();
@@ -175,7 +175,7 @@ const drivers = [
       const a = document.createElement('a');
       const timestamp = new Date().toISOString().replace(/[:.]/g, '-');
       a.href = url;
-      a.download = `lighttower-config-${timestamp}.json`;
+      a.download = `wheelbefine-config-${timestamp}.json`;
       document.body.appendChild(a);
       a.click();
       a.remove();
@@ -237,7 +237,7 @@ const drivers = [
                   </svg>
                 </div>
               </div>
-              <h1 className="text-4xl font-bold text-white mb-2">Lighttower</h1>
+              <h1 className="text-4xl font-bold text-white mb-2">Wheel be Fine</h1>
               <p className="text-blue-400 text-sm uppercase tracking-wider">Racing Analytics Platform</p>
             </div>
             
@@ -347,7 +347,7 @@ const drivers = [
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-6">
               <div>
-                <h1 className="text-2xl font-bold text-white">LIGHTTOWER</h1>
+                <h1 className="text-2xl font-bold text-white">WHEEL BE FINE</h1>
                 <p className="text-sm text-blue-400">#{selectedDriver.number} {selectedDriver.name}</p>
               </div>
             </div>
@@ -413,153 +413,217 @@ const drivers = [
             >
               Feedback Log
             </button>
+            <button
+              onClick={() => setCurrentPage('recovery')}
+              className={`px-6 py-2 font-medium transition ${
+                currentPage === 'recovery'
+                  ? 'text-white border-b-2 border-blue-500'
+                  : 'text-gray-400 hover:text-white'
+              }`}
+            >
+              Recovery
+            </button>
           </div>
         </div>
       </div>
 
       <div className="max-w-7xl mx-auto px-6 py-8">
         {currentPage === 'profile' && (
-          <div className="space-y-6">
-            <div className="bg-slate-800/90 backdrop-blur-lg rounded-2xl p-8 border border-blue-500/20">
-              <h2 className="text-3xl font-bold text-white mb-6">Driver Profile</h2>
-              
-              <div className="grid md:grid-cols-3 gap-6">
-                <div className="bg-slate-700/50 rounded-xl p-6">
-                  <p className="text-gray-400 text-sm mb-2">Age</p>
-                  <p className="text-3xl font-bold text-white">{selectedDriver.age}</p>
-                </div>
-                <div className="bg-slate-700/50 rounded-xl p-6">
-                  <p className="text-gray-400 text-sm mb-2">Years on Team</p>
-                  <p className="text-3xl font-bold text-white">{selectedDriver.years}</p>
-                </div>
-                <div className="bg-slate-700/50 rounded-xl p-6">
-                  <p className="text-gray-400 text-sm mb-2">Car Number</p>
-                  <p className="text-3xl font-bold text-blue-500">#{selectedDriver.number}</p>
+          <div className="grid grid-cols-12 gap-6">
+            <div className="col-span-8 space-y-6">
+              <div>
+                <h2 className="text-4xl font-bold text-blue-400 mb-2">{selectedDriver.name.split(' ')[0]}</h2>
+                <p className="text-gray-400">Let's review your racing performance</p>
+              </div>
+              <div className="bg-slate-800/90 backdrop-blur-lg rounded-2xl p-6 border border-blue-500/20">
+                <div className="grid grid-cols-3 gap-8">
+                  <div className="flex items-center gap-4">
+                    <div className="w-12 h-12 bg-blue-500/20 rounded-lg flex items-center justify-center">
+                      <span className="text-2xl">🏁</span>
+                    </div>
+                    <div>
+                      <p className="text-4xl font-bold text-blue-400">{selectedDriver.races}</p>
+                      <p className="text-gray-400 text-sm">Races Completed</p>
+                    </div>
+                  </div>
+                  <div className="flex items-center gap-4">
+                    <div className="w-12 h-12 bg-purple-500/20 rounded-lg flex items-center justify-center">
+                      <span className="text-2xl">⏱️</span>
+                    </div>
+                    <div>
+                      <p className="text-4xl font-bold text-purple-400">{(selectedDriver.races * 1.5).toFixed(1)}</p>
+                      <p className="text-gray-400 text-sm">Hours on Track</p>
+                    </div>
+                  </div>
+                  <div className="flex items-center gap-4">
+                    <div className="w-12 h-12 bg-green-500/20 rounded-lg flex items-center justify-center">
+                      <span className="text-2xl">🎯</span>
+                    </div>
+                    <div>
+                      <p className="text-4xl font-bold text-green-400">{((20 - selectedDriver.avgPosition) / 20 * 100).toFixed(0)}%</p>
+                      <p className="text-gray-400 text-sm">Consistency</p>
+                    </div>
+                  </div>
                 </div>
               </div>
-            </div>
-
-            <div className="bg-slate-800/90 backdrop-blur-lg rounded-2xl p-8 border border-blue-500/20">
-              <h2 className="text-2xl font-bold text-white mb-6">Career Statistics</h2>
-              
-              <div className="grid md:grid-cols-4 gap-6">
-                <div className="bg-slate-700/50 rounded-xl p-6">
-                  <p className="text-gray-400 text-sm mb-2">Total Races</p>
-                  <p className="text-4xl font-bold text-white">{selectedDriver.races}</p>
+              <div className="grid md:grid-cols-2 gap-4">
+                <div onClick={() => setShowPreferences(true)} className="bg-gradient-to-br from-cyan-500/20 to-blue-600/20 backdrop-blur-lg rounded-2xl p-6 border border-cyan-500/30 hover:border-cyan-500 cursor-pointer transition group">
+                  <div className="flex items-center justify-between">
+                    <div className="flex items-center gap-4">
+                      <div className="w-14 h-14 bg-white/10 rounded-xl flex items-center justify-center"><Settings className="w-7 h-7 text-cyan-400" /></div>
+                      <div><h3 className="text-xl font-bold text-white mb-1">Setup Preferences</h3><p className="text-cyan-200 text-sm">Fine-tune your car configuration</p></div>
+                    </div>
+                    <ChevronRight className="w-6 h-6 text-cyan-400 group-hover:translate-x-1 transition" />
+                  </div>
                 </div>
-                <div className="bg-slate-700/50 rounded-xl p-6">
-                  <p className="text-gray-400 text-sm mb-2">Career Points</p>
-                  <p className="text-4xl font-bold text-blue-400">{selectedDriver.points}</p>
-                </div>
-                <div className="bg-slate-700/50 rounded-xl p-6">
-                  <p className="text-gray-400 text-sm mb-2">Podiums</p>
-                  <p className="text-4xl font-bold text-white">{selectedDriver.podiums}</p>
-                </div>
-                <div className="bg-slate-700/50 rounded-xl p-6">
-                  <p className="text-gray-400 text-sm mb-2">Championships</p>
-                  <p className="text-4xl font-bold text-white">{selectedDriver.championships}</p>
+                <div onClick={() => setCurrentPage('races')} className="bg-gradient-to-br from-orange-500/20 to-pink-600/20 backdrop-blur-lg rounded-2xl p-6 border border-orange-500/30 hover:border-orange-500 cursor-pointer transition group">
+                  <div className="flex items-center justify-between">
+                    <div className="flex items-center gap-4">
+                      <div className="w-14 h-14 bg-white/10 rounded-xl flex items-center justify-center"><Play className="w-7 h-7 text-orange-400" /></div>
+                      <div><h3 className="text-xl font-bold text-white mb-1">Start Racing</h3><p className="text-orange-200 text-sm">Begin your next race session</p></div>
+                    </div>
+                    <ChevronRight className="w-6 h-6 text-orange-400 group-hover:translate-x-1 transition" />
+                  </div>
                 </div>
               </div>
-            </div>
-
-            <div className="bg-slate-800/90 backdrop-blur-lg rounded-2xl p-8 border border-blue-500/20">
-              <h2 className="text-2xl font-bold text-white mb-6">Performance Metrics</h2>
-              
-              <div className="grid md:grid-cols-2 gap-6">
-                <div className="bg-slate-700/50 rounded-xl p-6">
-                  <p className="text-gray-400 text-sm mb-2">Top Speed</p>
-                  <p className="text-4xl font-bold text-white">{selectedDriver.topSpeed}</p>
-                </div>
-                <div className="bg-slate-700/50 rounded-xl p-6">
-                  <p className="text-gray-400 text-sm mb-2">Avg. Finish Position</p>
-                  <p className="text-4xl font-bold text-blue-400">{selectedDriver.avgPosition}</p>
-                </div>
-              </div>
-            </div>
-
-            <div className="bg-slate-800/90 backdrop-blur-lg rounded-2xl p-8 border border-blue-500/20">
-              <div className="flex items-center justify-between mb-6">
-                <h2 className="text-2xl font-bold text-white">Driver Preferences</h2>
-                <button
-                  onClick={() => setShowPreferences(!showPreferences)}
-                  className="flex items-center gap-2 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-500 transition"
-                >
-                  <Settings className="w-4 h-4" />
-                  {showPreferences ? 'Hide' : 'Show'} Settings
-                </button>
-              </div>
-
-              {showPreferences && (
+              <div className="bg-slate-800/90 backdrop-blur-lg rounded-2xl p-6 border border-blue-500/20">
+                <h3 className="text-xl font-bold text-white mb-4">Weekly Performance Goals</h3>
                 <div className="space-y-4">
+                  <div className="bg-slate-700/50 rounded-xl p-4">
+                    <div className="flex items-center justify-between mb-2">
+                      <p className="text-white font-medium">Complete 3 pre-race excercises</p>
+                      <p className="text-blue-400 font-bold">2/3</p>
+                    </div>
+                    <div className="w-full bg-slate-600 rounded-full h-2">
+                      <div className="bg-gradient-to-r from-blue-500 to-blue-400 h-2 rounded-full" style={{width: '66%'}}></div>
+                    </div>
+                  </div>
+                  <div className="bg-slate-700/50 rounded-xl p-4">
+                    <div className="flex items-center justify-between mb-2">
+                      <p className="text-white font-medium">Finish in top 15 positions</p>
+                      <p className="text-purple-400 font-bold">1/2</p>
+                    </div>
+                    <div className="w-full bg-slate-600 rounded-full h-2">
+                      <div className="bg-gradient-to-r from-purple-500 to-purple-400 h-2 rounded-full" style={{width: '50%'}}></div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div className="col-span-4 space-y-6">
+              <div className="bg-slate-800/90 backdrop-blur-lg rounded-2xl p-6 border border-blue-500/20">
+                <div className="flex flex-col items-center text-center mb-6">
+                  <div className="w-24 h-24 rounded-full overflow-hidden border-4 border-blue-500/50 bg-gradient-to-br from-blue-500 to-purple-500 flex items-center justify-center mb-4 relative">
+                    <img src="/profile.png" alt={selectedDriver.name} className="w-full h-full object-cover absolute inset-0" onError={(e) => e.currentTarget.style.display = 'none'} />
+                    <svg viewBox="0 0 64 64" className="w-16 h-16 relative z-10" fill="white">
+                      <path d="M32 8 L28 12 L20 12 L18 14 L18 20 L16 22 L16 28 L14 30 L14 36 L16 38 L16 44 L18 46 L18 52 L20 54 L44 54 L46 52 L46 46 L48 44 L48 38 L50 36 L50 30 L48 28 L48 22 L46 20 L46 14 L44 12 L36 12 L32 8 Z" />
+                      <ellipse cx="32" cy="30" rx="18" ry="12" fill="#1e293b" opacity="0.3"/>
+                      <path d="M20 18 L44 18 L46 20 L46 24 L44 26 L20 26 L18 24 L18 20 Z" fill="#ef4444"/>
+                      <rect x="28" y="32" width="8" height="4" rx="1" fill="#94a3b8"/>
+                    </svg>
+                  </div>
+                  <h3 className="text-2xl font-bold text_white mb-1">{selectedDriver.name}</h3>
+                  <p className="text-gray-400 mb-4">Car #{selectedDriver.number}</p>
+                </div>
+                <div className="space-y-3 text-sm">
+                  <div className="flex items-center justify_between py-2 border-b border-slate-700/50">
+                    <span className="text-gray-400">Age</span>
+                    <span className="text-white font-semibold">{selectedDriver.age} years</span>
+                  </div>
+                  <div className="flex items-center justify_between py-2 border-b border-slate-700/50">
+                    <span className="text-gray-400">Experience</span>
+                    <span className="text-white font-semibold">{selectedDriver.years}</span>
+                  </div>
+                  <div className="flex items-center justify_between py-2 border-b border-slate-700/50">
+                    <span className="text-gray-400">Total Races</span>
+                    <span className="text-white font-semibold">{selectedDriver.races}</span>
+                  </div>
+                  <div className="flex items-center justify_between py-2 border-b border-slate-700/50">
+                    <span className="text-gray-400">Career Points</span>
+                    <span className="text-blue-400 font-semibold">{selectedDriver.points}</span>
+                  </div>
+                  <div className="flex items-center justify_between py-2 border-b border-slate-700/50">
+                    <span className="text-gray-400">Podiums</span>
+                    <span className="text-white font-semibold">{selectedDriver.podiums}</span>
+                  </div>
+                  <div className="flex items-center justify_between py-2 border-b border-slate-700/50">
+                    <span className="text-gray-400">Championships</span>
+                    <span className="text-white font-semibold">{selectedDriver.championships}</span>
+                  </div>
+                  <div className="flex items-center justify_between py-2">
+                    <span className="text-gray-400">Top Speed</span>
+                    <span className="text-white font-semibold">{selectedDriver.topSpeed}</span>
+                  </div>
+                  <div className="flex items-center justify_between py-2">
+                    <span className="text-gray-400">Average Position</span>
+                    <span className="text-blue-400 font-semibold">{selectedDriver.avgPosition}</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        )}
+
+        {showPreferences && (
+          <div className="fixed inset-0 bg-black/50 backdrop-blur-sm flex items-center justify-center z-50 p-4">
+            <div className="bg-slate-800 rounded-2xl border border-blue-500/20 max-w-4xl w-full max-h-[90vh] overflow-y-auto">
+              <div className="p-8">
+                <div className="flex items-center justify-between mb-6">
+                  <h2 className="text-3xl font-bold text-white">Driver Preferences</h2>
+                  <button onClick={() => setShowPreferences(false)} className="text-gray-400 hover:text-white transition">
+                    <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                    </svg>
+                  </button>
+                </div>
+                <div className="space-y-6">
                   <div className="grid md:grid-cols-2 gap-6">
                     <div className="space-y-4">
-                       <div className="bg-slate-700/50 rounded-xl p-4">
+                      <div className="bg-slate-700/50 rounded-xl p-4">
                         <div className="flex items-center justify-between mb-2">
                           <label className="text-gray-300 text-sm font-medium">Brake Pedal Linearity</label>
                           <span className="text-blue-400 font-bold">{preferences.brake_pedal_linearity}</span>
                         </div>
-                        <input
-                          type="range"
-                          min="0"
-                          max="1"
-                          step="0.05"
-                          value={preferences.brake_pedal_linearity}
-                          onChange={(e) => setPreferences({...preferences, brake_pedal_linearity: parseFloat(e.target.value)})}
-                          className="w-full h-2 bg-slate-600 rounded-lg appearance-none cursor-pointer"
-                        />
+                        <input type="range" min="0" max="1" step="0.05" value={preferences.brake_pedal_linearity} onChange={(e) => setPreferences({...preferences, brake_pedal_linearity: parseFloat(e.target.value)})} className="w-full h-2 bg-slate-600 rounded-lg appearance-none cursor-pointer" />
                       </div>
                       <div className="bg-slate-700/50 rounded-xl p-4">
                         <div className="flex items-center justify-between mb-2">
                           <label className="text-gray-300 text-sm font-medium">Throttle Linearity</label>
                           <span className="text-blue-400 font-bold">{preferences.throttle_linearity}</span>
                         </div>
-                        <input
-                          type="range"
-                          min="0"
-                          max="1"
-                          step="0.05"
-                          value={preferences.throttle_linearity}
-                          onChange={(e) => setPreferences({...preferences, throttle_linearity: parseFloat(e.target.value)})}
-                          className="w-full h-2 bg-slate-600 rounded-lg appearance-none cursor-pointer"
-                        />
+                        <input type="range" min="0" max="1" step="0.05" value={preferences.throttle_linearity} onChange={(e) => setPreferences({...preferences, throttle_linearity: parseFloat(e.target.value)})} className="w-full h-2 bg-slate-600 rounded-lg appearance-none cursor-pointer" />
                       </div>
                     </div>
-
                     <div className="space-y-4">
                       <div className="bg-slate-700/50 rounded-xl p-4">
                         <div className="flex items-center justify-between mb-2">
                           <label className="text-gray-300 text-sm font-medium">Stability Bias</label>
                           <span className="text-blue-400 font-bold">{preferences.stability_bias}</span>
                         </div>
-                        <input
-                          type="range"
-                          min="0"
-                          max="1"
-                          step="0.05"
-                          value={preferences.stability_bias}
-                          onChange={(e) => setPreferences({...preferences, stability_bias: parseFloat(e.target.value)})}
-                          className="w-full h-2 bg-slate-600 rounded-lg appearance-none cursor-pointer"
-                        />
+                        <input type="range" min="0" max="1" step="0.05" value={preferences.stability_bias} onChange={(e) => setPreferences({...preferences, stability_bias: parseFloat(e.target.value)})} className="w-full h-2 bg-slate-600 rounded-lg appearance-none cursor-pointer" />
                       </div>
-
                       <div className="bg-slate-700/50 rounded-xl p-4">
                         <label className="text-gray-300 text-sm font-medium mb-2 block">Steering Weight Preference</label>
-                        <select
-                          value={preferences.steering_weight_preference}
-                          onChange={(e) => setPreferences({...preferences, steering_weight_preference: e.target.value})}
-                          className="w-full px-4 py-2 bg-slate-600 border border-blue-500/30 rounded-lg text-white focus:outline-none focus:border-blue-500"
-                        >
+                        <select value={preferences.steering_weight_preference} onChange={(e) => setPreferences({...preferences, steering_weight_preference: e.target.value})} className="w-full px-4 py-2 bg-slate-600 border border-blue-500/30 rounded-lg text-white focus:outline-none focus:border-blue-500">
                           <option value="light">Light</option>
                           <option value="medium">Medium</option>
                           <option value="heavy">Heavy</option>
                         </select>
                       </div>
-
                     </div>
                   </div>
+                  <div className="bg-slate-700/50 rounded-xl p-6">
+                    <h3 className="text-xl font-bold text-white mb-4">Car Configuration</h3>
+                    <div className="bg-slate-600/50 rounded-lg p-8 min-h-[240px] flex items-center justify-center">
+                      <p className="text-gray-400 text-center">Drop-in your larger configuration UI here</p>
+                    </div>
+                  </div>
+                  <div className="flex justify-end gap-4">
+                    <button onClick={() => setShowPreferences(false)} className="px-6 py-3 bg-slate-700 text-white rounded-lg hover:bg-slate-600 transition">Cancel</button>
+                    <button onClick={() => setShowPreferences(false)} className="px-6 py-3 bg-blue-600 text-white font-bold rounded-lg hover:bg-blue-500 transition">Save Changes</button>
+                  </div>
                 </div>
-              )}
-
+              </div>
             </div>
           </div>
         )}
@@ -687,27 +751,7 @@ const drivers = [
                   <div className="bg-slate-700/50 rounded-xl p-6">
                     <h3 className="text-xl font-bold text-white mb-4">Circuit Layout</h3>
                     <div className="bg-slate-600/50 rounded-lg p-4 h-64 flex items-center justify-center">
-                      <div className="text-center">
-                        <svg viewBox="0 0 300 200" className="w-full max-w-xs mx-auto">
-                          <path 
-                            d="M 50 100 Q 80 50 120 60 L 180 70 Q 220 80 240 120 L 230 160 Q 200 180 160 170 L 100 160 Q 60 150 50 100 Z" 
-                            fill="none" 
-                            stroke="#3b82f6" 
-                            strokeWidth="8"
-                            strokeLinecap="round"
-                          />
-                          <circle cx="50" cy="100" r="6" fill="#22c55e" />
-                          <text x="30" y="105" fill="#22c55e" fontSize="12" fontWeight="bold">START</text>
-                          <circle cx="120" cy="60" r="4" fill="#60a5fa" />
-                          <circle cx="240" cy="120" r="4" fill="#60a5fa" />
-                          <circle cx="160" cy="170" r="4" fill="#60a5fa" />
-                          <text x="150" y="30" fill="#60a5fa" fontSize="10">Turn 1</text>
-                          <text x="245" y="125" fill="#60a5fa" fontSize="10">Turn 7</text>
-                          <text x="165" y="190" fill="#60a5fa" fontSize="10">Turn 12</text>
-                        </svg>
-                        <p className="text-gray-400 text-sm mt-4">Simplified Circuit Map</p>
-                        <p className="text-blue-400 text-xs mt-1">Upload custom track image for detailed view</p>
-                      </div>
+                      <img src={selectedRace.trackimage} alt={`${selectedRace.name} Circuit`} className="max-h-full max-w-full object-contain" onError={(e) => { const t = e.currentTarget; t.style.display = 'none'; }} />
                     </div>
                   </div>
 
@@ -786,11 +830,7 @@ const drivers = [
                   <div className="bg-slate-800/90 backdrop-blur-lg rounded-2xl p-6 border border-blue-500/20">
                     <h3 className="text-xl font-bold text-white mb-4">Race Track View</h3>
                     <div className="bg-slate-700/50 rounded-xl p-8 h-96 flex items-center justify-center">
-                      <p className="text-gray-400 text-center">
-                        Upload your race track component here<br/>
-                        Full width track visualization<br/>
-                        Real-time position tracking
-                      </p>
+                      <p className="text-gray-400 text-center">Track visualization coming soon</p>
                     </div>
                   </div>
 
@@ -921,13 +961,9 @@ const drivers = [
                         </div>
                       </div>
                       <div>
-                        <h4 className="text-lg font-bold text-blue-400 mb-3">Configuration Changes</h4>
-                        <div className="bg-slate-700/50 rounded-xl p-4">
-                          <p className="text-gray-400 text-center">
-                            Upload your race track component here<br/>
-                            This area will display the track visualization<br/>
-                            and grid positions for real-time analysis
-                          </p>
+                        <h4 className="text-lg font-bold text-blue-400 mb-3">Track Layout</h4>
+                        <div className="bg-slate-700/50 rounded-xl p-4 flex items-center justify-center min-h-64">
+                          <img src="/bahrain.png" alt="Bahrain Circuit" className="max-h-64 object-contain" onError={(e) => { const t = e.currentTarget; t.style.display = 'none'; }} />
                         </div>
                       </div>
                     </div>
@@ -961,13 +997,9 @@ const drivers = [
                         </div>
                       </div>
                       <div>
-                        <h4 className="text-lg font-bold text-blue-400 mb-3">Configuration Changes</h4>
-                        <div className="bg-slate-700/50 rounded-xl p-4">
-                          <p className="text-gray-400 text-center">
-                            Upload your race track component here<br/>
-                            This area will display the track visualization<br/>
-                            and grid positions for real-time analysis
-                          </p>
+                        <h4 className="text-lg font-bold text-blue-400 mb-3">Track Layout</h4>
+                        <div className="bg-slate-700/50 rounded-xl p-4 flex items-center justify-center min-h-64">
+                          <img src="/jeddah.png" alt="Saudi Arabian Circuit" className="max-h-64 object-contain" onError={(e) => { const t = e.currentTarget; t.style.display = 'none'; }} />
                         </div>
                       </div>
                     </div>
@@ -1005,18 +1037,89 @@ const drivers = [
                         </div>
                       </div>
                       <div>
-                        <h4 className="text-lg font-bold text-blue-400 mb-3">Configuration Changes</h4>
-                        <div className="bg-slate-700/50 rounded-xl p-4">
-                          <p className="text-gray-400 text-center">
-                            Upload your race track component here<br/>
-                            This area will display the track visualization<br/>
-                            and grid positions for real-time analysis
-                          </p>
+                        <h4 className="text-lg font-bold text-blue-400 mb-3">Track Layout</h4>
+                        <div className="bg-slate-700/50 rounded-xl p-4 flex items-center justify-center min-h-64">
+                          <img src="/australia.png" alt="Australian Circuit" className="max-h-64 object-contain" onError={(e) => { const t = e.currentTarget; t.style.display = 'none'; }} />
                         </div>
                       </div>
                     </div>
                   </div>
                 )}
+              </div>
+            </div>
+          </div>
+        )}
+
+        {currentPage === 'recovery' && (
+          <div>
+            <div className="mb-8">
+              <h2 className="text-3xl font-bold text-white mb-2">Recovery & Performance</h2>
+              <p className="text-blue-400">Track your physical and mental readiness</p>
+            </div>
+            <div className="grid md:grid-cols-2 gap-6">
+              <div className="bg-slate-800/90 backdrop-blur-lg rounded-2xl p-8 border border-blue-500/20">
+                <h3 className="text-xl font-bold text-white mb-6">Recovery Metrics</h3>
+                <div className="space-y-4">
+                  <div className="bg-slate-700/50 rounded-xl p-4">
+                    <div className="flex items-center justify-between mb-2">
+                      <span className="text-gray-300">Sleep Quality</span>
+                      <span className="text-green-400 font-bold">85%</span>
+                    </div>
+                    <div className="w-full bg-slate-600 rounded-full h-2">
+                      <div className="bg-gradient-to-r from-green-500 to-green-400 h-2 rounded-full" style={{width: '85%'}}></div>
+                    </div>
+                  </div>
+                  <div className="bg-slate-700/50 rounded-xl p-4">
+                    <div className="flex items-center justify-between mb-2">
+                      <span className="text-gray-300">Stress Level</span>
+                      <span className="text-yellow-400 font-bold">42%</span>
+                    </div>
+                    <div className="w-full bg-slate-600 rounded-full h-2">
+                      <div className="bg-gradient-to-r from-yellow-500 to-yellow-400 h-2 rounded-full" style={{width: '42%'}}></div>
+                    </div>
+                  </div>
+                  <div className="bg-slate-700/50 rounded-xl p-4">
+                    <div className="flex items-center justify-between mb-2">
+                      <span className="text-gray-300">Hydration</span>
+                      <span className="text-blue-400 font-bold">92%</span>
+                    </div>
+                    <div className="w-full bg-slate-600 rounded-full h-2">
+                      <div className="bg-gradient-to-r from-blue-500 to-blue-400 h-2 rounded-full" style={{width: '92%'}}></div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div className="bg-slate-800/90 backdrop-blur-lg rounded-2xl p-8 border border-blue-500/20">
+                <h3 className="text-xl font-bold text-white mb-6">Training Schedule</h3>
+                <div className="space-y-3">
+                  <div className="bg-slate-700/50 rounded-lg p-4">
+                    <div className="flex items-center justify-between">
+                      <div>
+                        <p className="text-white font-bold">Cardio Session</p>
+                        <p className="text-gray-400 text-sm">Tomorrow, 7:00 AM</p>
+                      </div>
+                      <span className="text-green-400">✓</span>
+                    </div>
+                  </div>
+                  <div className="bg-slate-700/50 rounded-lg p-4">
+                    <div className="flex items-center justify-between">
+                      <div>
+                        <p className="text-white font-bold">Simulator Practice</p>
+                        <p className="text-gray-400 text-sm">Tomorrow, 2:00 PM</p>
+                      </div>
+                      <span className="text-blue-400">→</span>
+                    </div>
+                  </div>
+                  <div className="bg-slate-700/50 rounded-lg p-4">
+                    <div className="flex items-center justify-between">
+                      <div>
+                        <p className="text-white font-bold">Strategy Review</p>
+                        <p className="text-gray-400 text-sm">Wed, 10:00 AM</p>
+                      </div>
+                      <span className="text-gray-400">○</span>
+                    </div>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
