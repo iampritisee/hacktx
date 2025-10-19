@@ -1,6 +1,6 @@
 'use client'
 import React, { useState, useEffect } from 'react';
-import { ChevronRight, User, Calendar, LogOut, Play, CheckCircle, Settings } from 'lucide-react';
+import { ChevronRight, User, Calendar, LogOut, Play, CheckCircle, Settings, Download } from 'lucide-react';
 import ThreeScene from './components/ThreeScene';
 import Simulation from './components/simulation.jsx';
 import axios from 'axios';
@@ -19,6 +19,7 @@ export default function Page() {
   const [newComment, setNewComment] = useState('');
   const [expandedRaces, setExpandedRaces] = useState({});
   const [overlayLabels, setOverlayLabels] = useState({});
+  const [fullConfig, setFullConfig] = useState(null);
   const [livePositions, setLivePositions] = useState([
     { position: 1, driver: 'M. Verstappen', team: 'Red Bull', interval: 'Leader' },
     { position: 2, driver: 'L. Norris', team: 'McLaren', interval: '+2.145' },
@@ -165,6 +166,25 @@ const drivers = [
     setRaceStarted(false);
   };
 
+  const downloadFullConfig = () => {
+    try {
+      const data = fullConfig;
+      const json = JSON.stringify(data, null, 2);
+      const blob = new Blob([json], { type: 'application/json' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      const timestamp = new Date().toISOString().replace(/[:.]/g, '-');
+      a.href = url;
+      a.download = `lighttower-config-${timestamp}.json`;
+      document.body.appendChild(a);
+      a.click();
+      a.remove();
+      URL.revokeObjectURL(url);
+    } catch (err) {
+      console.error('Failed to download config:', err);
+    }
+  };
+
   useEffect(() => {
     if (startIndividual) {
       axios.post('http://127.0.0.1:5000/dataForConfig', {
@@ -173,16 +193,16 @@ const drivers = [
         throttle_pedal_linearity: preferences.throttle_linearity,
         brake_pedal_linearity: preferences.brake_pedal_linearity
       }).then((response) => {
-        console.log(response);
+        setFullConfig(response.data);
         setOverlayLabels({
-          fl_tire: String("Brake Bias: " + response.data?.['brakes']['brake_bias_percent_front'] + "\n" + "Bleed Strategy: " + response.data?.['tyres']['bleed_strategy'] + "\n" + "Pressure: " + response.data?.['tyres']['pressures_psi']['fl'] ?? 'Front Left Tire'),
-          fr_tire: String("Brake Bias: " + response.data?.['brakes']['brake_bias_percent_front'] + "\n" + "Bleed Strategy: " + response.data?.['tyres']['bleed_strategy'] + "\n" + "Pressure: " + response.data?.['tyres']['pressures_psi']['fr'] ?? 'Front Right Tire'),
-          rl_tire: String("Brake Bias: " + (1 - response.data?.['brakes']['brake_bias_percent_front']) + "\n" + "Bleed Strategy: " + response.data?.['tyres']['bleed_strategy'] + "\n" + "Pressure: " + response.data?.['tyres']['pressures_psi']['rl'] ?? 'Rear Left Tire'),
-          rr_tire: String("Brake Bias: " + (1 - response.data?.['brakes']['brake_bias_percent_front']) + "\n" + "Bleed Strategy: " + response.data?.['tyres']['bleed_strategy'] + "\n" + "Pressure: " + response.data?.['tyres']['pressures_psi']['rr'] ?? 'Rear Right Tire'),
-          differential: String("Differential: " + response.data?.['differential_and_power']['diff_entry_percent'] + "\n" + "Ers Deployment: " + response.data?.['differential_and_power']['ers_deploy_mode'] + "\n" + "Throttle Map: " + response.data?.['differential_and_power']['throttle_map'] ?? 'Differential'),
-          steering: String("Steering Ratio: " + response.data?.['alignment']['steering_ratio'] ?? 'Steering'),
-          front_wing: String("Front Wing Flap: " + response.data?.['aero']['front_wing_flap_deg'] + "\n" ?? 'Front Wing'),
-          rear_wing: String("Rear Wing Main: " + response.data?.['aero']['rear_wing_main_deg'] ?? 'Rear Wing'),
+          fl_tire: String("Brake Bias: " + response.data?.['optimized_setup']['brakes']['brake_bias_percent_front'] + "\n" + "Bleed Strategy: " + response.data?.['optimized_setup']['tyres']['bleed_strategy'] + "\n" + "Pressure: " + response.data?.['optimized_setup']['tyres']['pressures_psi']['fl'] ?? 'Front Left Tire'),
+          fr_tire: String("Brake Bias: " + response.data?.['optimized_setup']['brakes']['brake_bias_percent_front'] + "\n" + "Bleed Strategy: " + response.data?.['optimized_setup']['tyres']['bleed_strategy'] + "\n" + "Pressure: " + response.data?.['optimized_setup']['tyres']['pressures_psi']['fr'] ?? 'Front Right Tire'),
+          rl_tire: String("Brake Bias: " + (1 - response.data?.['optimized_setup']['brakes']['brake_bias_percent_front']) + "\n" + "Bleed Strategy: " + response.data?.['optimized_setup']['tyres']['bleed_strategy'] + "\n" + "Pressure: " + response.data?.['optimized_setup']['tyres']['pressures_psi']['rl'] ?? 'Rear Left Tire'),
+          rr_tire: String("Brake Bias: " + (1 - response.data?.['optimized_setup']['brakes']['brake_bias_percent_front']) + "\n" + "Bleed Strategy: " + response.data?.['optimized_setup']['tyres']['bleed_strategy'] + "\n" + "Pressure: " + response.data?.['optimized_setup']['tyres']['pressures_psi']['rr'] ?? 'Rear Right Tire'),
+          differential: String("Differential: " + response.data?.['optimized_setup']['differential_and_power']['diff_entry_percent'] + "\n" + "Ers Deployment: " + response.data?.['optimized_setup']['differential_and_power']['ers_deploy_mode'] + "\n" + "Throttle Map: " + response.data?.['optimized_setup']['differential_and_power']['throttle_map'] ?? 'Differential'),
+          steering: String("Steering Ratio: " + response.data?.['optimized_setup']['alignment']['steering_ratio'] ?? 'Steering'),
+          front_wing: String("Front Wing Flap: " + response.data?.['optimized_setup']['aero']['front_wing_flap_deg'] + "\n" ?? 'Front Wing'),
+          rear_wing: String("Rear Wing Main: " + response.data?.['optimized_setup']['aero']['rear_wing_main_deg'] ?? 'Rear Wing'),
         });
       }).catch((error) => {
         console.error(error);
@@ -569,6 +589,14 @@ const drivers = [
               <div className="bg-slate-700/50 rounded-xl p-8">
                 <ThreeScene labels={overlayLabels} />
               </div>
+                <button
+                  onClick={() => downloadFullConfig()}
+                  className="flex items-center gap-2 px-4 py-2 bg-blue-600 text-white rounded-lg cursor-pointer hover:bg-blue-500 transition"
+                >
+                <Download className="w-4 h-4" />
+                Download Full Config
+              </button>
+
             </div>
           </div>
         )}
