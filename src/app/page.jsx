@@ -240,20 +240,10 @@ const drivers = [
           <div className="bg-slate-800/90 backdrop-blur-lg rounded-2xl shadow-2xl p-8 border border-blue-500/20">
             <div className="text-center mb-8">
               <div className="mb-4 flex justify-center">
-                <div className="w-24 h-24 bg-gradient-to-br from-blue-500 to-blue-600 rounded-lg flex items-center justify-center p-3">
-                  <svg viewBox="0 0 100 50" className="w-full h-full">
-                    <path d="M 10 25 L 30 15 L 30 35 Z" fill="white"/>
-                    <rect x="28" y="20" width="8" height="10" fill="white"/>
-                    <path d="M 40 25 L 50 25 L 45 15 Z" fill="#ef4444"/>
-                    <path d="M 40 25 L 50 25 L 45 35 Z" fill="#ef4444"/>
-                    <rect x="55" y="15" width="3" height="20" fill="white"/>
-                    <circle cx="70" cy="25" r="10" stroke="white" strokeWidth="3" fill="none"/>
-                    <circle cx="70" cy="25" r="5" fill="#ef4444"/>
-                  </svg>
-                </div>
+    
               </div>
-              <h1 className="text-4xl font-bold text-white mb-2">Wheel be Fine</h1>
-              <p className="text-blue-400 text-sm uppercase tracking-wider">Racing Analytics Platform</p>
+                <img src="/white.png.webp" alt="" />
+              
             </div>
             
             <form onSubmit={handleLogin} className="space-y-6">
@@ -361,8 +351,12 @@ const drivers = [
         <div className="max-w-7xl mx-auto px-6 py-4">
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-6">
+              <img 
+                src="/white.png.webp" 
+                alt="Wheel be Fine Logo" 
+                className="h-16 w-auto object-contain"
+              />
               <div>
-                <h1 className="text-2xl font-bold text-white">WHEEL BE FINE</h1>
                 <p className="text-sm text-blue-400">#{selectedDriver.number} {selectedDriver.name}</p>
               </div>
             </div>
