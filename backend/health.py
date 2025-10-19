@@ -38,7 +38,7 @@ def generate_report(race_data: dict) -> dict:
         dehydration_report["evidence"] = f"HPC models estimate a significant fluid loss of {fluid_loss}L, based on a cockpit temperature of {race_data.get('cockpit_temp_c')}°C and sustained G-exertion."
         dehydration_report["recommendation"] = "Immediate intake of 1.5L of electrolyte solution over the next 60 minutes. Avoid caffeine for the next 4 hours."
     else:
-        dehydration_report["severity"] = "Normal"
+        dehydration_report["severity"] = "Moderate"
         dehydration_report["evidence"] = f"Estimated fluid loss of {fluid_loss}L is within expected limits."
         dehydration_report["recommendation"] = "Standard rehydration protocol."
     report["priority_recovery_plan"].append(dehydration_report)
