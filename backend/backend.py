@@ -6,11 +6,18 @@ import firebase_admin
 from firebase_admin import firestore
 from firebase_admin import credentials
 
+import os
+
 from poc import compute_setup_from_doc
 from health import generate_report
+from flask_cors import CORS
 
+CORS(app)
+# CORS(app, resources={r"/": {"origins": "*"}})
 
-cred = credentials.Certificate("../serviceAccountKey.json")
+basedir = os.path.dirname((os.path.dirname(os.path.abspath(__file__))))
+
+cred = credentials.Certificate(os.path.join(basedir, "serviceAccountKey.json"))
 firebase_admin.initialize_app(cred)
 
 db = firestore.client()

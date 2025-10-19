@@ -80,5 +80,3 @@ def generate_report(race_data: dict) -> dict:
     ]
 
     return report
-
-
