@@ -101,21 +101,21 @@ const drivers = [
     { id: 2, name: 'Singapore Grand Prix', date: 'Oct 3-5', circuit: 'Marina Bay Street Circuit', laps: 62, trackimage: '/tracks/marina bay.png' },
     { id: 3, name: 'Azerbaijan Grand Prix', date: 'Sep 19-21', circuit: 'Baku City Circuit', laps: 51, trackimage: '/tracks/azerbaijan.png' },
     { id: 4, name: 'Italian Grand Prix', date: 'Sep 5-7', circuit: 'Autodromo Nazionale di Monza', laps: 53, trackimage: '/tracks/italymonza.png' },
-    { id: 5, name: 'Dutch Grand Prix', date: 'Aug 29-31', circuit: 'Circuit Zandvoort', laps: 72, trackimage: '/tracks/belgium.png'},
-    { id: 6, name: 'Hungarian Grand Prix', date: 'Aug 1-3', circuit: 'Hungaroring', laps: 70 },
-    { id: 7, name: 'Belgian Grand Prix', date: 'Jul 25-27', circuit: 'Circuit de Spa-Francorchamps', laps: 44, sprint: true },
-    { id: 8, name: 'British Grand Prix', date: 'Jul 4-6', circuit: 'Silverstone Circuit', laps: 52 },
-    { id: 9, name: 'Austrian Grand Prix', date: 'Jun 27-29', circuit: 'Red Bull Ring', laps: 71 },
-    { id: 10, name: 'Canadian Grand Prix', date: 'Jun 13-15', circuit: 'Circuit Gilles Villeneuve', laps: 70 },
-    { id: 11, name: 'Spanish Grand Prix', date: 'May 30-Jun 1', circuit: 'Circuit de Barcelona-Catalunya', laps: 66 },
-    { id: 12, name: 'Monaco Grand Prix', date: 'May 23-25', circuit: 'Circuit de Monaco', laps: 78 },
-    { id: 13, name: 'Emilia Romagna Grand Prix', date: 'May 16-18', circuit: 'Autodromo Enzo e Dino Ferrari', laps: 63 },
-    { id: 14, name: 'Miami Grand Prix', date: 'May 2-4', circuit: 'Miami International Autodrome', laps: 57, sprint: true },
-    { id: 15, name: 'Saudi Arabian Grand Prix', date: 'Apr 18-20', circuit: 'Jeddah Corniche Circuit', laps: 50 },
-    { id: 16, name: 'Bahrain Grand Prix', date: 'Apr 11-13', circuit: 'Bahrain International Circuit', laps: 57 },
-    { id: 17, name: 'Japanese Grand Prix', date: 'Apr 4-6', circuit: 'Suzuka Circuit', laps: 53 },
-    { id: 18, name: 'Chinese Grand Prix', date: 'Mar 21-23', circuit: 'Shanghai International Circuit', laps: 56, sprint: true },
-    { id: 19, name: 'Australian Grand Prix', date: 'Mar 14-16', circuit: 'Albert Park Circuit', laps: 58 },
+    { id: 5, name: 'Dutch Grand Prix', date: 'Aug 29-31', circuit: 'Circuit Zandvoort', laps: 72, trackimage: '/tracks/netherlands.png' },
+    { id: 6, name: 'Hungarian Grand Prix', date: 'Aug 1-3', circuit: 'Hungaroring', laps: 70, trackimage: '/tracks/hungary.png' },
+    { id: 7, name: 'Belgian Grand Prix', date: 'Jul 25-27', circuit: 'Circuit de Spa-Francorchamps', laps: 44, sprint: true, trackimage: '/tracks/belgium.png' },
+    { id: 8, name: 'British Grand Prix', date: 'Jul 4-6', circuit: 'Silverstone Circuit', laps: 52, trackimage: '/tracks/great britain.png' },
+    { id: 9, name: 'Austrian Grand Prix', date: 'Jun 27-29', circuit: 'Red Bull Ring', laps: 71, trackimage: '/tracks/austria.png' },
+    { id: 10, name: 'Canadian Grand Prix', date: 'Jun 13-15', circuit: 'Circuit Gilles Villeneuve', laps: 70, trackimage: '/tracks/canada.png' },
+    { id: 11, name: 'Spanish Grand Prix', date: 'May 30-Jun 1', circuit: 'Circuit de Barcelona-Catalunya', laps: 66, trackimage: '/tracks/spain.png' },
+    { id: 12, name: 'Monaco Grand Prix', date: 'May 23-25', circuit: 'Circuit de Monaco', laps: 78, trackimage: '/tracks/monaco.png' },
+    { id: 13, name: 'Emilia Romagna Grand Prix', date: 'May 16-18', circuit: 'Autodromo Enzo e Dino Ferrari', laps: 63, trackimage: '/tracks/italy.png' },
+    { id: 14, name: 'Miami Grand Prix', date: 'May 2-4', circuit: 'Miami International Autodrome', laps: 57, sprint: true, trackimage: '/tracks/miami.png' },
+    { id: 15, name: 'Saudi Arabian Grand Prix', date: 'Apr 18-20', circuit: 'Jeddah Corniche Circuit', laps: 50, trackimage: '/tracks/jeddah.png' },
+    { id: 16, name: 'Bahrain Grand Prix', date: 'Apr 11-13', circuit: 'Bahrain International Circuit', laps: 57, trackimage: '/tracks/bahrain.png' },
+    { id: 17, name: 'Japanese Grand Prix', date: 'Apr 4-6', circuit: 'Suzuka Circuit', laps: 53, trackimage: '/tracks/japan.png' },
+    { id: 18, name: 'Chinese Grand Prix', date: 'Mar 21-23', circuit: 'Shanghai International Circuit', laps: 56, sprint: true, trackimage: '/tracks/china.png' },
+    { id: 19, name: 'Australian Grand Prix', date: 'Mar 14-16', circuit: 'Albert Park Circuit', laps: 58, trackimage: '/tracks/australia.png' },
     ];
 
   const handleLogin = (e) => {
@@ -183,7 +183,7 @@ const drivers = [
                   </svg>
                 </div>
               </div>
-              <h1 className="text-4xl font-bold text-white mb-2">Lighttower</h1>
+              <h1 className="text-4xl font-bold text-white mb-2">Wheel be Fine </h1>
               <p className="text-blue-400 text-sm uppercase tracking-wider">Racing Analytics Platform</p>
             </div>
             
@@ -293,7 +293,7 @@ const drivers = [
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-6">
               <div>
-                <h1 className="text-2xl font-bold text-white">LIGHTTOWER</h1>
+                <h1 className="text-2xl font-bold text-white">WHEEL BE FINE</h1>
                 <p className="text-sm text-blue-400">#{selectedDriver.number} {selectedDriver.name}</p>
               </div>
             </div>
@@ -358,6 +358,16 @@ const drivers = [
               }`}
             >
               Feedback Log
+            </button>
+            <button
+              onClick={() => setCurrentPage('recovery')}
+              className={`px-6 py-2 font-medium transition ${
+                currentPage === 'recovery'
+                  ? 'text-white border-b-2 border-blue-500'
+                  : 'text-gray-400 hover:text-white'
+              }`}
+            >
+              Recovery
             </button>
           </div>
         </div>
