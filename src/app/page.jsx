@@ -809,45 +809,11 @@ const drivers = [
             </div>
 
             {raceStarted && (
-              <div className="grid grid-cols-12 gap-6">
-                <div className="col-span-3">
-                  <div className="bg-slate-800/90 backdrop-blur-lg rounded-2xl p-4 border border-blue-500/20 sticky top-4">
-                    <h3 className="text-lg font-bold text-white mb-4">Live Standings</h3>
-                    <div className="space-y-2 max-h-[600px] overflow-y-auto">
-                      {livePositions.map((pos) => (
-                        <div 
-                          key={pos.position}
-                          className={`flex items-center justify-between p-2 rounded-lg text-xs ${
-                            pos.driver === 'A. Albon' || pos.driver === 'A. Alle'
-                              ? 'bg-blue-500/20 border border-blue-500/40'
-                              : 'bg-slate-700/50'
-                          }`}
-                        >
-                          <div className="flex items-center gap-2">
-                            <span className="text-white font-bold w-6">{pos.position}</span>
-                            <div>
-                              <p className={`font-bold ${
-                                pos.driver === 'A. Albon' || pos.driver === 'A. Alle'
-                                  ? 'text-blue-400'
-                                  : 'text-white'
-                              }`}>
-                                {pos.driver}
-                              </p>
-                              <p className="text-gray-400 text-xs">{pos.team}</p>
-                            </div>
-                          </div>
-                          <span className="text-gray-400">{pos.interval}</span>
-                        </div>
-                      ))}
-                    </div>
-                  </div>
-                </div>
-
-                <div className="col-span-9 space-y-6">
+              <div className="space-y-6">
                   <div className="bg-slate-800/90 backdrop-blur-lg rounded-2xl p-6 border border-blue-500/20">
                     <h3 className="text-xl font-bold text-white mb-4">Race Track View</h3>
-                    <div className="bg-slate-700/50 rounded-xl p-8 h-96 flex items-center justify-center">
-                      <p className="text-gray-400 text-center">Track visualization coming soon</p>
+                    <div className="bg-slate-700/50 rounded-xl overflow-hidden">
+                      <Simulation startIndividual={false} full={true} />
                     </div>
                   </div>
 
@@ -884,7 +850,6 @@ const drivers = [
                     </div>
                   </div>
                 </div>
-              </div>
             )}
           </div>
         )}

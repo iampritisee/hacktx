@@ -5,7 +5,7 @@ import Leaderboard from '@/app/components/leaderboard.jsx';
 import trackImage from '../../../public/coda.png';
 import Image from 'next/image';
 
-export default function RaceTrack({ startIndividual = false }) {
+export default function RaceTrack({ startIndividual = false, full = false}) {
   const [activeTab, setActiveTab] = useState('idle');
 
   const trackPath = useMemo(() => [
@@ -125,6 +125,10 @@ export default function RaceTrack({ startIndividual = false }) {
   useEffect(() => {
     setActiveTab(startIndividual ? 'individual' : 'idle');
   }, [startIndividual]);
+
+  useEffect(() => {
+    setActiveTab(full ? 'full' : 'idle');
+  }, [full]);
 
   return (
     <div className="h-full w-full bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900 p-4 md:p-8">
