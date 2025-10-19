@@ -7,12 +7,14 @@ from firebase_admin import firestore
 from firebase_admin import credentials
 
 from poc import compute_setup_from_doc
+from health import generate_report
 
 
 cred = credentials.Certificate("../serviceAccountKey.json")
 firebase_admin.initialize_app(cred)
 
 db = firestore.client()
+
 
 @app.route('/dataForConfig', methods = ['POST'])
 def get_ideal_config():
@@ -49,31 +51,15 @@ def get_ideal_config():
 @app.route('/feedback')
 def give_feedback():
 
-  inp_data = request.get_json()       # receive metadata at that turn
+  query = db.collection("race_data").limit(1)      # retrieve race_data
+  results = list(query.stream())
 
-  turn_id = inp_data['turn']
+  data = results[0]
+  
+  converted_data = data.to_dict()
+  result = generate_report(converted_data)      # return health result
 
-  all_docs_stream = db.collection("reference_laps").stream()
-        
-  reference_point_data = None
-
-  for doc in all_docs_stream:
-    reference_lap_doc = doc.to_dict()
-    reference_turns_data = reference_lap_doc.get('turns_data', [])
-            # Loop through the turns data array inside the document
-    for turn_data in reference_turns_data:
-        if turn_data.get('turn') == turn_id:
-          reference_point_data = turn_data
-          break  # Found the turn
-    if reference_point_data:
-      break  # Found the turn, stop searching other documents
-
-  if not reference_point_data:
-    return jsonify({"error": f"No reference data found for turn {turn_id} in any test drive."}), 404
-
-  # result = calc_feedback(data)     # computation for getting feedback
-
-  # return jsonify(result)      # give feedback
+  return jsonify(result, 200)
 
 
 
