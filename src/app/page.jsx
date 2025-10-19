@@ -1141,7 +1141,7 @@ const drivers = [
             <div className="bg-slate-800/90 backdrop-blur-lg rounded-2xl p-8 border border-blue-500/20">
               <div className="flex items-center justify-between mb-6">
                 <div>
-                  <h3 className="text-xl font-bold text-white">AI Recovery Analysis</h3>
+                  <h3 className="text-xl font-bold text-white">Recovery Analysis</h3>
                   <p className="text-gray-400 text-sm">Get personalized recovery recommendations</p>
                 </div>
                 <button
