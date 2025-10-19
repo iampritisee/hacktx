@@ -907,121 +907,162 @@ const drivers = [
             </div>
 
             <div className="space-y-4">
-              <div className="bg-slate-800/90 backdrop-blur-lg rounded-2xl border border-blue-500/20 overflow-hidden">
-                <button
-                  onClick={() => setExpandedRaces({...expandedRaces, bahrain: !expandedRaces.bahrain})}
-                  className="w-full p-6 flex items-center justify-between hover:bg-slate-700/30 transition"
-                >
-                  <h3 className="text-2xl font-bold text-white">Bahrain Grand Prix</h3>
-                  <ChevronRight className={`w-6 h-6 text-blue-400 transition-transform ${expandedRaces.bahrain ? 'rotate-90' : ''}`} />
-                </button>
-                
-                {expandedRaces.bahrain && (
-                  <div className="p-6 pt-0">
-                    <div className="grid md:grid-cols-2 gap-6">
-                      <div>
-                        <h4 className="text-lg font-bold text-blue-400 mb-3">Race Feedback</h4>
-                        <div className="space-y-3">
-                          <div className="bg-slate-700/50 rounded-lg p-4">
-                            <p className="text-gray-400 text-xs mb-1">Lap 1-18</p>
-                            <p className="text-white text-sm">Starting on medium tires, good pace maintained. Clean first stint.</p>
-                          </div>
-                          <div className="bg-slate-700/50 rounded-lg p-4">
-                            <p className="text-gray-400 text-xs mb-1">Lap 19-38</p>
-                            <p className="text-white text-sm">Switched to hard tires. Strong middle stint, gained 2 positions through undercuts.</p>
-                          </div>
-                          <div className="bg-slate-700/50 rounded-lg p-4">
-                            <p className="text-gray-400 text-xs mb-1">Lap 39-57</p>
-                            <p className="text-white text-sm">Final stint on hard tires. Tire deg higher than expected. Consider earlier final stop.</p>
-                          </div>
-                        </div>
-                      </div>
-                      <div>
-                        <h4 className="text-lg font-bold text-blue-400 mb-3">Track Layout</h4>
-                        <div className="bg-slate-700/50 rounded-xl p-4 flex items-center justify-center min-h-64">
-                          <img src="/bahrain.png" alt="Bahrain Circuit" className="max-h-64 object-contain" onError={(e) => { const t = e.currentTarget; t.style.display = 'none'; }} />
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                )}
-              </div>
+              {races.map((race) => {
+                const key = race.name
+                  .toLowerCase()
+                  .replace(/grand\s+prix/g, '')
+                  .replace(/[^a-z0-9]+/g, '_')
+                  .replace(/^_|_$/g, '');
+                const isExpanded = !!expandedRaces[key];
+                const imgSrc = race.trackimage || `/${key}.png`;
 
-              <div className="bg-slate-800/90 backdrop-blur-lg rounded-2xl border border-blue-500/20 overflow-hidden">
-                <button
-                  onClick={() => setExpandedRaces({...expandedRaces, saudi: !expandedRaces.saudi})}
-                  className="w-full p-6 flex items-center justify-between hover:bg-slate-700/30 transition"
-                >
-                  <h3 className="text-2xl font-bold text-white">Saudi Arabian Grand Prix</h3>
-                  <ChevronRight className={`w-6 h-6 text-blue-400 transition-transform ${expandedRaces.saudi ? 'rotate-90' : ''}`} />
-                </button>
-                
-                {expandedRaces.saudi && (
-                  <div className="p-6 pt-0">
-                    <div className="grid md:grid-cols-2 gap-6">
-                      <div>
-                        <h4 className="text-lg font-bold text-blue-400 mb-3">Race Feedback</h4>
-                        <div className="space-y-3">
-                          <div className="bg-slate-700/50 rounded-lg p-4">
-                            <p className="text-gray-400 text-xs mb-1">Lap 1-28</p>
-                            <p className="text-white text-sm">Started on hard tires, excellent tire management in opening stint.</p>
+                const renderCustomFeedback = () => {
+                  if (race.name === 'Bahrain Grand Prix') {
+                    return (
+                      <div className="p-6 pt-0">
+                        <div className="grid md:grid-cols-2 gap-6">
+                          <div>
+                            <h4 className="text-lg font-bold text-blue-400 mb-3">Race Feedback</h4>
+                            <div className="space-y-3">
+                              <div className="bg-slate-700/50 rounded-lg p-4">
+                                <p className="text-gray-400 text-xs mb-1">Lap 1-18</p>
+                                <p className="text-white text-sm">Starting on medium tires, good pace maintained. Clean first stint.</p>
+                              </div>
+                              <div className="bg-slate-700/50 rounded-lg p-4">
+                                <p className="text-gray-400 text-xs mb-1">Lap 19-38</p>
+                                <p className="text-white text-sm">Switched to hard tires. Strong middle stint, gained 2 positions through undercuts.</p>
+                              </div>
+                              <div className="bg-slate-700/50 rounded-lg p-4">
+                                <p className="text-gray-400 text-xs mb-1">Lap 39-57</p>
+                                <p className="text-white text-sm">Final stint on hard tires. Tire deg higher than expected. Consider earlier final stop.</p>
+                              </div>
+                            </div>
                           </div>
-                          <div className="bg-slate-700/50 rounded-lg p-4">
-                            <p className="text-gray-400 text-xs mb-1">Lap 29-50</p>
-                            <p className="text-white text-sm">Changed to medium compound. Great pace, overtook 3 cars. Perfect strategy execution.</p>
+                          <div>
+                            <h4 className="text-lg font-bold text-blue-400 mb-3">Track Layout</h4>
+                            <div className="bg-slate-700/50 rounded-xl p-4 flex items-center justify-center min-h-64">
+                              <img src="/bahrain.png" alt="Bahrain Circuit" className="max-h-64 object-contain" onError={(e) => { const t = e.currentTarget; t.style.display = 'none'; }} />
+                            </div>
                           </div>
                         </div>
                       </div>
-                      <div>
-                        <h4 className="text-lg font-bold text-blue-400 mb-3">Track Layout</h4>
-                        <div className="bg-slate-700/50 rounded-xl p-4 flex items-center justify-center min-h-64">
-                          <img src="/jeddah.png" alt="Saudi Arabian Circuit" className="max-h-64 object-contain" onError={(e) => { const t = e.currentTarget; t.style.display = 'none'; }} />
+                    );
+                  }
+                  if (race.name === 'Saudi Arabian Grand Prix') {
+                    return (
+                      <div className="p-6 pt-0">
+                        <div className="grid md:grid-cols-2 gap-6">
+                          <div>
+                            <h4 className="text-lg font-bold text-blue-400 mb-3">Race Feedback</h4>
+                            <div className="space-y-3">
+                              <div className="bg-slate-700/50 rounded-lg p-4">
+                                <p className="text-gray-400 text-xs mb-1">Lap 1-28</p>
+                                <p className="text-white text-sm">Started on hard tires, excellent tire management in opening stint.</p>
+                              </div>
+                              <div className="bg-slate-700/50 rounded-lg p-4">
+                                <p className="text-gray-400 text-xs mb-1">Lap 29-50</p>
+                                <p className="text-white text-sm">Changed to medium compound. Great pace, overtook 3 cars. Perfect strategy execution.</p>
+                              </div>
+                            </div>
+                          </div>
+                          <div>
+                            <h4 className="text-lg font-bold text-blue-400 mb-3">Track Layout</h4>
+                            <div className="bg-slate-700/50 rounded-xl p-4 flex items-center justify-center min-h-64">
+                              <img src="/jeddah.png" alt="Saudi Arabian Circuit" className="max-h-64 object-contain" onError={(e) => { const t = e.currentTarget; t.style.display = 'none'; }} />
+                            </div>
+                          </div>
                         </div>
                       </div>
-                    </div>
-                  </div>
-                )}
-              </div>
+                    );
+                  }
+                  if (race.name === 'Australian Grand Prix') {
+                    return (
+                      <div className="p-6 pt-0">
+                        <div className="grid md:grid-cols-2 gap-6">
+                          <div>
+                            <h4 className="text-lg font-bold text-blue-400 mb-3">Race Feedback</h4>
+                            <div className="space-y-3">
+                              <div className="bg-slate-700/50 rounded-lg p-4">
+                                <p className="text-gray-400 text-xs mb-1">Lap 1-22</p>
+                                <p className="text-white text-sm">Medium compound start, solid pace maintaining position.</p>
+                              </div>
+                              <div className="bg-slate-700/50 rounded-lg p-4">
+                                <p className="text-gray-400 text-xs mb-1">Lap 23-44</p>
+                                <p className="text-white text-sm">Hard tires fitted. Front wing adjustment at Lap 28 improved balance significantly.</p>
+                              </div>
+                              <div className="bg-slate-700/50 rounded-lg p-4">
+                                <p className="text-gray-400 text-xs mb-1">Lap 45-58</p>
+                                <p className="text-white text-sm">Soft tires for final push. Great overtakes on Lap 34-36. Strong finish.</p>
+                              </div>
+                            </div>
+                          </div>
+                          <div>
+                            <h4 className="text-lg font-bold text-blue-400 mb-3">Track Layout</h4>
+                            <div className="bg-slate-700/50 rounded-xl p-4 flex items-center justify-center min-h-64">
+                              <img src="/australia.png" alt="Australian Circuit" className="max-h-64 object-contain" onError={(e) => { const t = e.currentTarget; t.style.display = 'none'; }} />
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    );
+                  }
+                  return null;
+                };
 
-              <div className="bg-slate-800/90 backdrop-blur-lg rounded-2xl border border-blue-500/20 overflow-hidden">
-                <button
-                  onClick={() => setExpandedRaces({...expandedRaces, australia: !expandedRaces.australia})}
-                  className="w-full p-6 flex items-center justify-between hover:bg-slate-700/30 transition"
-                >
-                  <h3 className="text-2xl font-bold text-white">Australian Grand Prix</h3>
-                  <ChevronRight className={`w-6 h-6 text-blue-400 transition-transform ${expandedRaces.australia ? 'rotate-90' : ''}`} />
-                </button>
-                
-                {expandedRaces.australia && (
-                  <div className="p-6 pt-0">
-                    <div className="grid md:grid-cols-2 gap-6">
-                      <div>
-                        <h4 className="text-lg font-bold text-blue-400 mb-3">Race Feedback</h4>
-                        <div className="space-y-3">
-                          <div className="bg-slate-700/50 rounded-lg p-4">
-                            <p className="text-gray-400 text-xs mb-1">Lap 1-22</p>
-                            <p className="text-white text-sm">Medium compound start, solid pace maintaining position.</p>
-                          </div>
-                          <div className="bg-slate-700/50 rounded-lg p-4">
-                            <p className="text-gray-400 text-xs mb-1">Lap 23-44</p>
-                            <p className="text-white text-sm">Hard tires fitted. Front wing adjustment at Lap 28 improved balance significantly.</p>
-                          </div>
-                          <div className="bg-slate-700/50 rounded-lg p-4">
-                            <p className="text-gray-400 text-xs mb-1">Lap 45-58</p>
-                            <p className="text-white text-sm">Soft tires for final push. Great overtakes on Lap 34-36. Strong finish.</p>
+                const renderGeneratedFeedback = () => {
+                  const laps = Number(race.laps) || 50;
+                  const stint1End = Math.max(1, Math.floor(laps * 0.33));
+                  const stint2End = Math.max(stint1End + 1, Math.floor(laps * 0.66));
+                  const finalEnd = laps;
+                  const sprintNote = race.sprint ? ' Sprint weekend adjustments applied.' : '';
+
+                  return (
+                    <div className="p-6 pt-0">
+                      <div className="grid md:grid-cols-2 gap-6">
+                        <div>
+                          <h4 className="text-lg font-bold text-blue-400 mb-3">Race Feedback</h4>
+                          <div className="space-y-3">
+                            <div className="bg-slate-700/50 rounded-lg p-4">
+                              <p className="text-gray-400 text-xs mb-1">Lap 1-{stint1End}</p>
+                              <p className="text-white text-sm">Started on medium compound, stable pace and clean tire warmup.{sprintNote}</p>
+                            </div>
+                            <div className="bg-slate-700/50 rounded-lg p-4">
+                              <p className="text-gray-400 text-xs mb-1">Lap {stint1End + 1}-{stint2End}</p>
+                              <p className="text-white text-sm">Switched to hard tires. Managed deg well, consistent sectors, gained time in pit cycle.</p>
+                            </div>
+                            <div className="bg-slate-700/50 rounded-lg p-4">
+                              <p className="text-gray-400 text-xs mb-1">Lap {stint2End + 1}-{finalEnd}</p>
+                              <p className="text-white text-sm">Final stint: softs for track position. Strong exits in traction zones, slight lift in high-speed corners for balance.</p>
+                            </div>
                           </div>
                         </div>
-                      </div>
-                      <div>
-                        <h4 className="text-lg font-bold text-blue-400 mb-3">Track Layout</h4>
-                        <div className="bg-slate-700/50 rounded-xl p-4 flex items-center justify-center min-h-64">
-                          <img src="/australia.png" alt="Australian Circuit" className="max-h-64 object-contain" onError={(e) => { const t = e.currentTarget; t.style.display = 'none'; }} />
+                        <div>
+                          <h4 className="text-lg font-bold text-blue-400 mb-3">Track Layout</h4>
+                          <div className="bg-slate-700/50 rounded-xl p-4 flex items-center justify-center min-h-64">
+                            <img src={imgSrc} alt={`${race.name} Circuit`} className="max-h-64 object-contain" onError={(e) => { const t = e.currentTarget; t.style.display = 'none'; }} />
+                          </div>
                         </div>
                       </div>
                     </div>
+                  );
+                };
+
+                const hasCustom = race.name === 'Bahrain Grand Prix' || race.name === 'Saudi Arabian Grand Prix' || race.name === 'Australian Grand Prix';
+
+                return (
+                  <div key={race.id} className="bg-slate-800/90 backdrop-blur-lg rounded-2xl border border-blue-500/20 overflow-hidden">
+                    <button
+                      onClick={() => setExpandedRaces({ ...expandedRaces, [key]: !expandedRaces[key] })}
+                      className="w-full p-6 flex items-center justify-between hover:bg-slate-700/30 transition"
+                    >
+                      <h3 className="text-2xl font-bold text-white">{race.name}</h3>
+                      <ChevronRight className={`w-6 h-6 text-blue-400 transition-transform ${isExpanded ? 'rotate-90' : ''}`} />
+                    </button>
+
+                    {isExpanded && (hasCustom ? renderCustomFeedback() : renderGeneratedFeedback())}
                   </div>
-                )}
-              </div>
+                );
+              })}
             </div>
           </div>
         )}
