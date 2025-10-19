@@ -13,7 +13,16 @@ const WilliamsF1Dashboard = () => {
   const [liveComments, setLiveComments] = useState([]);
   const [newComment, setNewComment] = useState('');
   const [expandedRaces, setExpandedRaces] = useState({});
-  const [livePositions, setLivePositions] = useState([
+  const [showPreferences, setShowPreferences] = useState(false);
+  const [preferences, setPreferences] = useState({
+    stability_bias: 0.8,
+    steering_weight_preference: 'medium',
+    throttle_linearity: 0.85,
+    brake_pedal_linearity: 0.90,
+    aggression: 0.2
+  });
+
+  const livePositions = [
     { position: 1, driver: 'M. Verstappen', team: 'Red Bull', interval: 'Leader' },
     { position: 2, driver: 'L. Norris', team: 'McLaren', interval: '+2.145' },
     { position: 3, driver: 'C. Leclerc', team: 'Ferrari', interval: '+5.234' },
@@ -34,8 +43,9 @@ const WilliamsF1Dashboard = () => {
     { position: 18, driver: 'G. Zhou', team: 'Sauber', interval: '+56.012' },
     { position: 19, driver: 'D. Ricciardo', team: 'RB', interval: '+1 Lap' },
     { position: 20, driver: 'E. Ocon', team: 'Alpine', interval: '+1 Lap' }
-  ]);
-  const [gridPositions, setGridPositions] = useState([
+  ];
+
+  const gridPositions = [
     { position: 1, driver: 'M. Verstappen', team: 'Red Bull Racing', time: '1:28.987' },
     { position: 2, driver: 'L. Norris', team: 'McLaren', time: '1:29.145' },
     { position: 3, driver: 'C. Leclerc', team: 'Ferrari', time: '1:29.234' },
@@ -56,44 +66,11 @@ const WilliamsF1Dashboard = () => {
     { position: 18, driver: 'G. Zhou', team: 'Sauber', time: '1:31.012' },
     { position: 19, driver: 'D. Ricciardo', team: 'RB', time: '1:31.123' },
     { position: 20, driver: 'E. Ocon', team: 'Alpine', time: '1:31.234' }
-  ]);
+  ];
 
-  const [showPreferences, setShowPreferences] = useState(false);
-  const [preferences, setPreferences] = useState({
-    stability_bias: 0.8,
-    steering_weight_preference: 'medium',
-    throttle_linearity: 0.85,
-    brake_pedal_linearity: 0.90,
-    aggression: 0.2
-  });
-
-const drivers = [
-    {
-      id: 1,
-      name: 'Carlos Sainz',
-      number: 55,
-      years: '16 seasons',
-      age: 31,
-      podiums: 2,
-      points: 38,
-      races: 18,
-      championships: 0,
-      topSpeed: '342 km/h',
-      avgPosition: 13.1
-    },
-    {
-      id: 2,
-      name: 'Anish Alle',
-      number: 4,
-      years: '1 season',
-      age: 19,
-      podiums: 0,
-      points: 12,
-      races: 8,
-      championships: 0,
-      topSpeed: '328 km/h',
-      avgPosition: 19.2
-    }
+  const drivers = [
+    { id: 1, name: 'Carlos Sainz', number: 55, years: '16 seasons', age: 31, podiums: 2, points: 38, races: 18, championships: 0, topSpeed: '342 km/h', avgPosition: 13.1 },
+    { id: 2, name: 'Anish Alle', number: 4, years: '1 season', age: 19, podiums: 0, points: 12, races: 8, championships: 0, topSpeed: '328 km/h', avgPosition: 19.2 }
   ];
 
   const races = [
@@ -116,13 +93,11 @@ const drivers = [
     { id: 17, name: 'Japanese Grand Prix', date: 'Apr 4-6', circuit: 'Suzuka Circuit', laps: 53, trackimage: '/tracks/japan.png' },
     { id: 18, name: 'Chinese Grand Prix', date: 'Mar 21-23', circuit: 'Shanghai International Circuit', laps: 56, sprint: true, trackimage: '/tracks/china.png' },
     { id: 19, name: 'Australian Grand Prix', date: 'Mar 14-16', circuit: 'Albert Park Circuit', laps: 58, trackimage: '/tracks/australia.png' },
-    ];
+  ];
 
   const handleLogin = (e) => {
     e.preventDefault();
-    if (username && password) {
-      setIsLoggedIn(true);
-    }
+    if (username && password) setIsLoggedIn(true);
   };
 
   const handleDriverSelect = (driver) => {
@@ -166,7 +141,6 @@ const drivers = [
           <div className="absolute top-0 left-0 w-full h-2 bg-gradient-to-r from-blue-500 via-blue-400 to-blue-500"></div>
           <div className="absolute bottom-0 left-0 w-full h-2 bg-gradient-to-r from-blue-500 via-blue-400 to-blue-500"></div>
         </div>
-        
         <div className="relative z-10 w-full max-w-md">
           <div className="bg-slate-800/90 backdrop-blur-lg rounded-2xl shadow-2xl p-8 border border-blue-500/20">
             <div className="text-center mb-8">
@@ -186,43 +160,18 @@ const drivers = [
               <h1 className="text-4xl font-bold text-white mb-2">Wheel be Fine </h1>
               <p className="text-blue-400 text-sm uppercase tracking-wider">Racing Analytics Platform</p>
             </div>
-            
             <form onSubmit={handleLogin} className="space-y-6">
               <div>
                 <label className="block text-sm font-medium text-gray-300 mb-2">Username</label>
-                <input
-                  type="text"
-                  value={username}
-                  onChange={(e) => setUsername(e.target.value)}
-                  className="w-full px-4 py-3 bg-slate-700/50 border border-blue-500/30 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20 transition"
-                  placeholder="Enter employee ID"
-                  required
-                />
+                <input type="text" value={username} onChange={(e) => setUsername(e.target.value)} className="w-full px-4 py-3 bg-slate-700/50 border border-blue-500/30 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20 transition" placeholder="Enter employee ID" required />
               </div>
-              
               <div>
                 <label className="block text-sm font-medium text-gray-300 mb-2">Password</label>
-                <input
-                  type="password"
-                  value={password}
-                  onChange={(e) => setPassword(e.target.value)}
-                  className="w-full px-4 py-3 bg-slate-700/50 border border-blue-500/30 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20 transition"
-                  placeholder="Enter password"
-                  required
-                />
+                <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} className="w-full px-4 py-3 bg-slate-700/50 border border-blue-500/30 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20 transition" placeholder="Enter password" required />
               </div>
-              
-              <button
-                type="submit"
-                className="w-full bg-gradient-to-r from-blue-600 to-blue-500 text-white font-bold py-3 rounded-lg hover:from-blue-500 hover:to-blue-400 transition transform hover:scale-105 shadow-lg shadow-blue-500/30"
-              >
-                Access Platform
-              </button>
+              <button type="submit" className="w-full bg-gradient-to-r from-blue-600 to-blue-500 text-white font-bold py-3 rounded-lg hover:from-blue-500 hover:to-blue-400 transition transform hover:scale-105 shadow-lg shadow-blue-500/30">Access Team</button>
             </form>
-            
-            <div className="mt-6 text-center text-xs text-gray-500">
-              Made at HackTX © 2025
-            </div>
+            <div className="mt-6 text-center text-xs text-gray-500">Made at HackTX © 2025</div>
           </div>
         </div>
       </div>
@@ -238,22 +187,11 @@ const drivers = [
               <h1 className="text-4xl font-bold text-white mb-2">Select Driver</h1>
               <p className="text-blue-400">Choose a driver to analyze</p>
             </div>
-            <button
-              onClick={() => setIsLoggedIn(false)}
-              className="flex items-center gap-2 px-4 py-2 bg-slate-700 text-white rounded-lg hover:bg-slate-600 transition"
-            >
-              <LogOut className="w-4 h-4" />
-              Logout
-            </button>
+            <button onClick={() => setIsLoggedIn(false)} className="flex items-center gap-2 px-4 py-2 bg-slate-700 text-white rounded-lg hover:bg-slate-600 transition"><LogOut className="w-4 h-4" />Logout</button>
           </div>
-          
           <div className="grid md:grid-cols-2 gap-6">
             {drivers.map((driver) => (
-              <div
-                key={driver.id}
-                onClick={() => handleDriverSelect(driver)}
-                className="bg-slate-800/90 backdrop-blur-lg rounded-2xl p-8 border-2 border-blue-500/20 hover:border-blue-500 cursor-pointer transition transform hover:scale-105 shadow-xl"
-              >
+              <div key={driver.id} onClick={() => handleDriverSelect(driver)} className="bg-slate-800/90 backdrop-blur-lg rounded-2xl p-8 border-2 border-blue-500/20 hover:border-blue-500 cursor-pointer transition transform hover:scale-105 shadow-xl">
                 <div className="flex items-start justify-between mb-6">
                   <div>
                     <div className="text-6xl font-bold text-blue-500 mb-2">#{driver.number}</div>
@@ -262,18 +200,10 @@ const drivers = [
                   </div>
                   <User className="w-16 h-16 text-blue-400 opacity-50" />
                 </div>
-                
                 <div className="grid grid-cols-2 gap-4 text-sm">
-                  <div>
-                    <p className="text-gray-400">Races</p>
-                    <p className="text-xl font-bold text-white">{driver.races}</p>
-                  </div>
-                  <div>
-                    <p className="text-gray-400">Points</p>
-                    <p className="text-xl font-bold text-white">{driver.points}</p>
-                  </div>
+                  <div><p className="text-gray-400">Races</p><p className="text-xl font-bold text-white">{driver.races}</p></div>
+                  <div><p className="text-gray-400">Points</p><p className="text-xl font-bold text-white">{driver.points}</p></div>
                 </div>
-                
                 <div className="mt-6 flex items-center justify-end text-blue-400">
                   <span className="text-sm font-medium">Select</span>
                   <ChevronRight className="w-5 h-5 ml-1" />
@@ -297,232 +227,209 @@ const drivers = [
                 <p className="text-sm text-blue-400">#{selectedDriver.number} {selectedDriver.name}</p>
               </div>
             </div>
-            
             <div className="flex items-center gap-4">
-              <button
-                onClick={() => {
-                  setSelectedDriver(null);
-                  setCurrentPage('profile');
-                }}
-                className="px-4 py-2 text-sm text-gray-300 hover:text-white transition"
-              >
-                Change Driver
-              </button>
-              <button
-                onClick={() => setIsLoggedIn(false)}
-                className="flex items-center gap-2 px-4 py-2 bg-slate-700 text-white rounded-lg hover:bg-slate-600 transition"
-              >
-                <LogOut className="w-4 h-4" />
-                Logout
-              </button>
+              <button onClick={() => { setSelectedDriver(null); setCurrentPage('profile'); }} className="px-4 py-2 text-sm text-gray-300 hover:text-white transition">Change Driver</button>
+              <button onClick={() => setIsLoggedIn(false)} className="flex items-center gap-2 px-4 py-2 bg-slate-700 text-white rounded-lg hover:bg-slate-600 transition"><LogOut className="w-4 h-4" />Logout</button>
             </div>
           </div>
-          
           <div className="flex gap-1 mt-4">
-            <button
-              onClick={() => setCurrentPage('profile')}
-              className={`px-6 py-2 font-medium transition ${
-                currentPage === 'profile'
-                  ? 'text-white border-b-2 border-blue-500'
-                  : 'text-gray-400 hover:text-white'
-              }`}
-            >
-              Profile
-            </button>
-            <button
-              onClick={() => setCurrentPage('testdrive')}
-              className={`px-6 py-2 font-medium transition ${
-                currentPage === 'testdrive'
-                  ? 'text-white border-b-2 border-blue-500'
-                  : 'text-gray-400 hover:text-white'
-              }`}
-            >
-              Test Drive
-            </button>
-            <button
-              onClick={() => setCurrentPage('races')}
-              className={`px-6 py-2 font-medium transition ${
-                currentPage === 'races'
-                  ? 'text-white border-b-2 border-blue-500'
-                  : 'text-gray-400 hover:text-white'
-              }`}
-            >
-              Season Races
-            </button>
-            <button
-              onClick={() => setCurrentPage('feedback')}
-              className={`px-6 py-2 font-medium transition ${
-                currentPage === 'feedback'
-                  ? 'text-white border-b-2 border-blue-500'
-                  : 'text-gray-400 hover:text-white'
-              }`}
-            >
-              Feedback Log
-            </button>
-            <button
-              onClick={() => setCurrentPage('recovery')}
-              className={`px-6 py-2 font-medium transition ${
-                currentPage === 'recovery'
-                  ? 'text-white border-b-2 border-blue-500'
-                  : 'text-gray-400 hover:text-white'
-              }`}
-            >
-              Recovery
-            </button>
+            {['profile', 'testdrive', 'races', 'feedback', 'recovery'].map(page => (
+              <button key={page} onClick={() => setCurrentPage(page)} className={`px-6 py-2 font-medium transition ${currentPage === page ? 'text-white border-b-2 border-blue-500' : 'text-gray-400 hover:text-white'}`}>
+                {page === 'testdrive' ? 'Test Drive' : page === 'feedback' ? 'Feedback Log' : page.charAt(0).toUpperCase() + page.slice(1)}
+              </button>
+            ))}
           </div>
         </div>
       </div>
 
       <div className="max-w-7xl mx-auto px-6 py-8">
         {currentPage === 'profile' && (
-          <div className="space-y-6">
-            <div className="bg-slate-800/90 backdrop-blur-lg rounded-2xl p-8 border border-blue-500/20">
-              <h2 className="text-3xl font-bold text-white mb-6">Driver Profile</h2>
-              
-              <div className="grid md:grid-cols-3 gap-6">
-                <div className="bg-slate-700/50 rounded-xl p-6">
-                  <p className="text-gray-400 text-sm mb-2">Age</p>
-                  <p className="text-3xl font-bold text-white">{selectedDriver.age}</p>
-                </div>
-                <div className="bg-slate-700/50 rounded-xl p-6">
-                  <p className="text-gray-400 text-sm mb-2">Years on Team</p>
-                  <p className="text-3xl font-bold text-white">{selectedDriver.years}</p>
-                </div>
-                <div className="bg-slate-700/50 rounded-xl p-6">
-                  <p className="text-gray-400 text-sm mb-2">Car Number</p>
-                  <p className="text-3xl font-bold text-blue-500">#{selectedDriver.number}</p>
+          <div className="grid grid-cols-12 gap-6">
+            <div className="col-span-8 space-y-6">
+              <div>
+                <h2 className="text-4xl font-bold text-blue-400 mb-2">{selectedDriver.name.split(' ')[0]}</h2>
+                <p className="text-gray-400">Let's review your racing performance</p>
+              </div>
+              <div className="bg-slate-800/90 backdrop-blur-lg rounded-2xl p-6 border border-blue-500/20">
+                <div className="grid grid-cols-3 gap-8">
+                  <div className="flex items-center gap-4">
+                    <div className="w-12 h-12 bg-blue-500/20 rounded-lg flex items-center justify-center">
+                      <span className="text-2xl">🏁</span>
+                    </div>
+                    <div>
+                      <p className="text-4xl font-bold text-blue-400">{selectedDriver.races}</p>
+                      <p className="text-gray-400 text-sm">Races Completed</p>
+                    </div>
+                  </div>
+                  <div className="flex items-center gap-4">
+                    <div className="w-12 h-12 bg-purple-500/20 rounded-lg flex items-center justify-center">
+                      <span className="text-2xl">⏱️</span>
+                    </div>
+                    <div>
+                      <p className="text-4xl font-bold text-purple-400">{(selectedDriver.races * 1.5).toFixed(1)}</p>
+                      <p className="text-gray-400 text-sm">Hours on Track</p>
+                    </div>
+                  </div>
+                  <div className="flex items-center gap-4">
+                    <div className="w-12 h-12 bg-green-500/20 rounded-lg flex items-center justify-center">
+                      <span className="text-2xl">🎯</span>
+                    </div>
+                    <div>
+                      <p className="text-4xl font-bold text-green-400">{((20 - selectedDriver.avgPosition) / 20 * 100).toFixed(0)}%</p>
+                      <p className="text-gray-400 text-sm">Consistency</p>
+                    </div>
+                  </div>
                 </div>
               </div>
-            </div>
-
-            <div className="bg-slate-800/90 backdrop-blur-lg rounded-2xl p-8 border border-blue-500/20">
-              <h2 className="text-2xl font-bold text-white mb-6">Career Statistics</h2>
-              
-              <div className="grid md:grid-cols-4 gap-6">
-                <div className="bg-slate-700/50 rounded-xl p-6">
-                  <p className="text-gray-400 text-sm mb-2">Total Races</p>
-                  <p className="text-4xl font-bold text-white">{selectedDriver.races}</p>
+              <div className="grid md:grid-cols-2 gap-4">
+                <div onClick={() => setShowPreferences(true)} className="bg-gradient-to-br from-cyan-500/20 to-blue-600/20 backdrop-blur-lg rounded-2xl p-6 border border-cyan-500/30 hover:border-cyan-500 cursor-pointer transition group">
+                  <div className="flex items-center justify-between">
+                    <div className="flex items-center gap-4">
+                      <div className="w-14 h-14 bg-white/10 rounded-xl flex items-center justify-center"><Settings className="w-7 h-7 text-cyan-400" /></div>
+                      <div><h3 className="text-xl font-bold text-white mb-1">Setup Preferences</h3><p className="text-cyan-200 text-sm">Fine-tune your car configuration</p></div>
+                    </div>
+                    <ChevronRight className="w-6 h-6 text-cyan-400 group-hover:translate-x-1 transition" />
+                  </div>
                 </div>
-                <div className="bg-slate-700/50 rounded-xl p-6">
-                  <p className="text-gray-400 text-sm mb-2">Career Points</p>
-                  <p className="text-4xl font-bold text-blue-400">{selectedDriver.points}</p>
-                </div>
-                <div className="bg-slate-700/50 rounded-xl p-6">
-                  <p className="text-gray-400 text-sm mb-2">Podiums</p>
-                  <p className="text-4xl font-bold text-white">{selectedDriver.podiums}</p>
-                </div>
-                <div className="bg-slate-700/50 rounded-xl p-6">
-                  <p className="text-gray-400 text-sm mb-2">Championships</p>
-                  <p className="text-4xl font-bold text-white">{selectedDriver.championships}</p>
+                <div onClick={() => setCurrentPage('races')} className="bg-gradient-to-br from-orange-500/20 to-pink-600/20 backdrop-blur-lg rounded-2xl p-6 border border-orange-500/30 hover:border-orange-500 cursor-pointer transition group">
+                  <div className="flex items-center justify-between">
+                    <div className="flex items-center gap-4">
+                      <div className="w-14 h-14 bg-white/10 rounded-xl flex items-center justify-center"><Play className="w-7 h-7 text-orange-400" /></div>
+                      <div><h3 className="text-xl font-bold text-white mb-1">Start Racing</h3><p className="text-orange-200 text-sm">Begin your next race session</p></div>
+                    </div>
+                    <ChevronRight className="w-6 h-6 text-orange-400 group-hover:translate-x-1 transition" />
+                  </div>
                 </div>
               </div>
-            </div>
-
-            <div className="bg-slate-800/90 backdrop-blur-lg rounded-2xl p-8 border border-blue-500/20">
-              <h2 className="text-2xl font-bold text-white mb-6">Performance Metrics</h2>
-              
-              <div className="grid md:grid-cols-2 gap-6">
-                <div className="bg-slate-700/50 rounded-xl p-6">
-                  <p className="text-gray-400 text-sm mb-2">Top Speed</p>
-                  <p className="text-4xl font-bold text-white">{selectedDriver.topSpeed}</p>
-                </div>
-                <div className="bg-slate-700/50 rounded-xl p-6">
-                  <p className="text-gray-400 text-sm mb-2">Avg. Finish Position</p>
-                  <p className="text-4xl font-bold text-blue-400">{selectedDriver.avgPosition}</p>
-                </div>
-              </div>
-            </div>
-
-            <div className="bg-slate-800/90 backdrop-blur-lg rounded-2xl p-8 border border-blue-500/20">
-              <div className="flex items-center justify-between mb-6">
-                <h2 className="text-2xl font-bold text-white">Driver Preferences</h2>
-                <button
-                  onClick={() => setShowPreferences(!showPreferences)}
-                  className="flex items-center gap-2 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-500 transition"
-                >
-                  <Settings className="w-4 h-4" />
-                  {showPreferences ? 'Hide' : 'Show'} Settings
-                </button>
-              </div>
-
-              {showPreferences && (
+              <div className="bg-slate-800/90 backdrop-blur-lg rounded-2xl p-6 border border-blue-500/20">
+                <h3 className="text-xl font-bold text-white mb-4">Weekly Performance Goals</h3>
                 <div className="space-y-4">
+                  <div className="bg-slate-700/50 rounded-xl p-4">
+                    <div className="flex items-center justify-between mb-2">
+                      <p className="text-white font-medium">Complete 3 pre-race excercises</p>
+                      <p className="text-blue-400 font-bold">2/3</p>
+                    </div>
+                    <div className="w-full bg-slate-600 rounded-full h-2">
+                      <div className="bg-gradient-to-r from-blue-500 to-blue-400 h-2 rounded-full" style={{width: '66%'}}></div>
+                    </div>
+                  </div>
+                  <div className="bg-slate-700/50 rounded-xl p-4">
+                    <div className="flex items-center justify-between mb-2">
+                      <p className="text-white font-medium">Finish in top 15 positions</p>
+                      <p className="text-purple-400 font-bold">1/2</p>
+                    </div>
+                    <div className="w-full bg-slate-600 rounded-full h-2">
+                      <div className="bg-gradient-to-r from-purple-500 to-purple-400 h-2 rounded-full" style={{width: '50%'}}></div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div className="col-span-4 space-y-6">
+              <div className="bg-slate-800/90 backdrop-blur-lg rounded-2xl p-6 border border-blue-500/20">
+                <div className="flex flex-col items-center text-center mb-6">
+                  <div className="w-24 h-24 rounded-full overflow-hidden border-4 border-blue-500/50 bg-gradient-to-br from-blue-500 to-purple-500 flex items-center justify-center mb-4 relative">
+                    <img src="/profile.png" alt={selectedDriver.name} className="w-full h-full object-cover absolute inset-0" onError={(e) => e.target.style.display = 'none'} />
+                    <svg viewBox="0 0 64 64" className="w-16 h-16 relative z-10" fill="white">
+                      <path d="M32 8 L28 12 L20 12 L18 14 L18 20 L16 22 L16 28 L14 30 L14 36 L16 38 L16 44 L18 46 L18 52 L20 54 L44 54 L46 52 L46 46 L48 44 L48 38 L50 36 L50 30 L48 28 L48 22 L46 20 L46 14 L44 12 L36 12 L32 8 Z" />
+                      <ellipse cx="32" cy="30" rx="18" ry="12" fill="#1e293b" opacity="0.3"/>
+                      <path d="M20 18 L44 18 L46 20 L46 24 L44 26 L20 26 L18 24 L18 20 Z" fill="#ef4444"/>
+                      <rect x="28" y="32" width="8" height="4" rx="1" fill="#94a3b8"/>
+                    </svg>
+                  </div>
+                  <h3 className="text-2xl font-bold text-white mb-1">{selectedDriver.name}</h3>
+                  <p className="text-gray-400 mb-4">Car #{selectedDriver.number}</p>
+                </div>
+                <div className="space-y-3 text-sm">
+                  <div className="flex items-center justify-between py-2 border-b border-slate-700/50">
+                    <span className="text-gray-400">Age</span>
+                    <span className="text-white font-semibold">{selectedDriver.age} years</span>
+                  </div>
+                  <div className="flex items-center justify-between py-2 border-b border-slate-700/50">
+                    <span className="text-gray-400">Experience</span>
+                    <span className="text-white font-semibold">{selectedDriver.years}</span>
+                  </div>
+                  <div className="flex items-center justify-between py-2 border-b border-slate-700/50">
+                    <span className="text-gray-400">Total Races</span>
+                    <span className="text-white font-semibold">{selectedDriver.races}</span>
+                  </div>
+                  <div className="flex items-center justify-between py-2 border-b border-slate-700/50">
+                    <span className="text-gray-400">Career Points</span>
+                    <span className="text-blue-400 font-semibold">{selectedDriver.points}</span>
+                  </div>
+                  <div className="flex items-center justify-between py-2 border-b border-slate-700/50">
+                    <span className="text-gray-400">Podiums</span>
+                    <span className="text-white font-semibold">{selectedDriver.podiums}</span>
+                  </div>
+                  <div className="flex items-center justify-between py-2 border-b border-slate-700/50">
+                    <span className="text-gray-400">Championships</span>
+                    <span className="text-white font-semibold">{selectedDriver.championships}</span>
+                  </div>
+                  <div className="flex items-center justify-between py-2 border-b border-slate-700/50">
+                    <span className="text-gray-400">Top Speed</span>
+                    <span className="text-white font-semibold">{selectedDriver.topSpeed}</span>
+                  </div>
+                  <div className="flex items-center justify-between py-2">
+                    <span className="text-gray-400">Average Position</span>
+                    <span className="text-blue-400 font-semibold">{selectedDriver.avgPosition}</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        )}
+
+        {showPreferences && (
+          <div className="fixed inset-0 bg-black/50 backdrop-blur-sm flex items-center justify-center z-50 p-4">
+            <div className="bg-slate-800 rounded-2xl border border-blue-500/20 max-w-4xl w-full max-h-[90vh] overflow-y-auto">
+              <div className="p-8">
+                <div className="flex items-center justify-between mb-6">
+                  <h2 className="text-3xl font-bold text-white">Driver Preferences</h2>
+                  <button onClick={() => setShowPreferences(false)} className="text-gray-400 hover:text-white transition">
+                    <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                    </svg>
+                  </button>
+                </div>
+                <div className="space-y-6">
                   <div className="grid md:grid-cols-2 gap-6">
                     <div className="space-y-4">
-                       <div className="bg-slate-700/50 rounded-xl p-4">
-                        <div className="flex items-center justify-between mb-2">
-                          <label className="text-gray-300 text-sm font-medium">Brake Pedal Linearity</label>
-                          <span className="text-blue-400 font-bold">{preferences.brake_pedal_linearity}</span>
+                      {['brake_pedal_linearity', 'throttle_linearity'].map(key => (
+                        <div key={key} className="bg-slate-700/50 rounded-xl p-4">
+                          <div className="flex items-center justify-between mb-2">
+                            <label className="text-gray-300 text-sm font-medium">{key.split('_').map(w => w.charAt(0).toUpperCase() + w.slice(1)).join(' ')}</label>
+                            <span className="text-blue-400 font-bold">{preferences[key]}</span>
+                          </div>
+                          <input type="range" min="0" max="1" step="0.05" value={preferences[key]} onChange={(e) => setPreferences({...preferences, [key]: parseFloat(e.target.value)})} className="w-full h-2 bg-slate-600 rounded-lg appearance-none cursor-pointer" />
                         </div>
-                        <input
-                          type="range"
-                          min="0"
-                          max="1"
-                          step="0.05"
-                          value={preferences.brake_pedal_linearity}
-                          onChange={(e) => setPreferences({...preferences, brake_pedal_linearity: parseFloat(e.target.value)})}
-                          className="w-full h-2 bg-slate-600 rounded-lg appearance-none cursor-pointer"
-                        />
-                      </div>
-                      <div className="bg-slate-700/50 rounded-xl p-4">
-                        <div className="flex items-center justify-between mb-2">
-                          <label className="text-gray-300 text-sm font-medium">Throttle Linearity</label>
-                          <span className="text-blue-400 font-bold">{preferences.throttle_linearity}</span>
-                        </div>
-                        <input
-                          type="range"
-                          min="0"
-                          max="1"
-                          step="0.05"
-                          value={preferences.throttle_linearity}
-                          onChange={(e) => setPreferences({...preferences, throttle_linearity: parseFloat(e.target.value)})}
-                          className="w-full h-2 bg-slate-600 rounded-lg appearance-none cursor-pointer"
-                        />
-                      </div>
+                      ))}
                     </div>
-
                     <div className="space-y-4">
                       <div className="bg-slate-700/50 rounded-xl p-4">
                         <div className="flex items-center justify-between mb-2">
                           <label className="text-gray-300 text-sm font-medium">Stability Bias</label>
                           <span className="text-blue-400 font-bold">{preferences.stability_bias}</span>
                         </div>
-                        <input
-                          type="range"
-                          min="0"
-                          max="1"
-                          step="0.05"
-                          value={preferences.stability_bias}
-                          onChange={(e) => setPreferences({...preferences, stability_bias: parseFloat(e.target.value)})}
-                          className="w-full h-2 bg-slate-600 rounded-lg appearance-none cursor-pointer"
-                        />
+                        <input type="range" min="0" max="1" step="0.05" value={preferences.stability_bias} onChange={(e) => setPreferences({...preferences, stability_bias: parseFloat(e.target.value)})} className="w-full h-2 bg-slate-600 rounded-lg appearance-none cursor-pointer" />
                       </div>
-
                       <div className="bg-slate-700/50 rounded-xl p-4">
                         <label className="text-gray-300 text-sm font-medium mb-2 block">Steering Weight Preference</label>
-                        <select
-                          value={preferences.steering_weight_preference}
-                          onChange={(e) => setPreferences({...preferences, steering_weight_preference: e.target.value})}
-                          className="w-full px-4 py-2 bg-slate-600 border border-blue-500/30 rounded-lg text-white focus:outline-none focus:border-blue-500"
-                        >
-                          <option value="light">Light</option>
-                          <option value="medium">Medium</option>
-                          <option value="heavy">Heavy</option>
+                        <select value={preferences.steering_weight_preference} onChange={(e) => setPreferences({...preferences, steering_weight_preference: e.target.value})} className="w-full px-4 py-2 bg-slate-600 border border-blue-500/30 rounded-lg text-white focus:outline-none focus:border-blue-500">
+                          {['light', 'medium', 'heavy'].map(opt => <option key={opt} value={opt}>{opt.charAt(0).toUpperCase() + opt.slice(1)}</option>)}
                         </select>
                       </div>
-
                     </div>
                   </div>
-                </div>
-              )}
-
-              <div className="mt-8 bg-slate-700/50 rounded-xl p-8">
-                <h3 className="text-xl font-bold text-white mb-6 text-center">Car Visualization</h3>
-                <div className="flex items-center justify-center">
-                 <p className="text-gray-400 text-center">
-                    Upload your track component here<br/>
-                    Interactive circuit for testing configurations
-                  </p> 
+                  <div className="bg-slate-700/50 rounded-xl p-6">
+                    <h3 className="text-xl font-bold text-white mb-4">Car Configuration</h3>
+                    <div className="bg-slate-600/50 rounded-lg p-8 min-h-[300px] flex items-center justify-center">
+                      <p className="text-gray-400 text-center">Upload your large configuration component here<br/>This will display your custom car setup interface</p>
+                    </div>
+                  </div>
+                  <div className="flex justify-end gap-4">
+                    <button onClick={() => setShowPreferences(false)} className="px-6 py-3 bg-slate-700 text-white rounded-lg hover:bg-slate-600 transition">Cancel</button>
+                    <button onClick={() => setShowPreferences(false)} className="px-6 py-3 bg-blue-600 text-white font-bold rounded-lg hover:bg-blue-500 transition">Save Changes</button>
+                  </div>
                 </div>
               </div>
             </div>
@@ -531,68 +438,67 @@ const drivers = [
 
         {currentPage === 'testdrive' && (
           <div className="space-y-6">
+            <div>
+              <h2 className="text-3xl font-bold text-white mb-2">Test Drive Simulator</h2>
+              <p className="text-blue-400">Practice and refine your setup on any circuit</p>
+            </div>
+
             <div className="bg-slate-800/90 backdrop-blur-lg rounded-2xl p-8 border border-blue-500/20">
-              <h2 className="text-3xl font-bold text-white mb-6">Test Drive Simulator</h2>
-              <p className="text-gray-400 mb-6">Practice and refine your setup on any circuit</p>
-              
-              <div className="bg-slate-700/50 rounded-xl p-8">
-                <h3 className="text-xl font-bold text-white mb-4 text-center">Track Simulator</h3>
-                <div className="flex items-center justify-center h-96">
-                  <p className="text-gray-400 text-center">
-                    Upload your track component here<br/>
-                    Interactive circuit for testing configurations
-                  </p>
+              <div className="flex items-center justify-between mb-6">
+                <div>
+                  <h3 className="text-2xl font-bold text-white">Individual Track Time</h3>
+                  <p className="text-gray-400 text-sm">Test your driving performance on specific circuits</p>
                 </div>
+              </div>
+              <div className="bg-slate-700/50 rounded-xl p-8 min-h-[400px] flex items-center justify-center">
+                <p className="text-gray-400 text-center">
+                  Upload your Individual Track Time component here<br/>
+                  This will display track selection and timing interface
+                </p>
               </div>
             </div>
 
             <div className="bg-slate-800/90 backdrop-blur-lg rounded-2xl p-8 border border-blue-500/20">
-              <h2 className="text-2xl font-bold text-white mb-6">Configuration Panel</h2>
-              <div className="bg-slate-700/50 rounded-xl p-8">
+              <div className="flex items-center justify-between mb-6">
+                <div>
+                  <h3 className="text-2xl font-bold text-white">Ideal Configuration</h3>
+                  <p className="text-gray-400 text-sm">Find the optimal car setup for your driving style</p>
+                </div>
+              </div>
+              <div className="bg-slate-700/50 rounded-xl p-8 min-h-[400px] flex items-center justify-center">
                 <p className="text-gray-400 text-center">
-                  Upload your configuration component here<br/>
-                  Adjust car settings and see real-time changes
+                  Upload your Ideal Configuration component here<br/>
+                  This will display car setup optimization tools
                 </p>
               </div>
             </div>
           </div>
         )}
 
+        {/* Rest of the code continues with races, feedback, and recovery sections */}
+        
         {currentPage === 'races' && !selectedRace && (
           <div>
             <div className="mb-8">
               <h2 className="text-3xl font-bold text-white mb-2">2025 Season</h2>
               <p className="text-blue-400">Select a race to analyze</p>
             </div>
-            
             <div className="grid gap-4">
-              {races.map((race) => (
-                <div
-                  key={race.id}
-                  onClick={() => handleRaceSelect(race)}
-                  className="bg-slate-800/90 backdrop-blur-lg rounded-xl p-6 border border-blue-500/20 hover:border-blue-500 cursor-pointer transition hover:transform hover:scale-[1.02]"
-                >
+              {races.map(race => (
+                <div key={race.id} onClick={() => handleRaceSelect(race)} className="bg-slate-800/90 backdrop-blur-lg rounded-xl p-6 border border-blue-500/20 hover:border-blue-500 cursor-pointer transition hover:transform hover:scale-[1.02]">
                   <div className="flex items-center justify-between">
                     <div className="flex items-center gap-4">
-                      <div className="w-12 h-12 bg-blue-500/20 rounded-lg flex items-center justify-center">
-                        <Calendar className="w-6 h-6 text-blue-400" />
-                      </div>
+                      <div className="w-12 h-12 bg-blue-500/20 rounded-lg flex items-center justify-center"><Calendar className="w-6 h-6 text-blue-400" /></div>
                       <div>
                         <div className="flex items-center gap-2">
                           <h3 className="text-xl font-bold text-white">{race.name}</h3>
-                          {race.sprint && (
-                            <span className="px-2 py-1 bg-purple-500/20 text-purple-400 text-xs font-bold rounded border border-purple-500/30">
-                              SPRINT
-                            </span>
-                          )}
+                          {race.sprint && <span className="px-2 py-1 bg-purple-500/20 text-purple-400 text-xs font-bold rounded border border-purple-500/30">SPRINT</span>}
                         </div>
                         <p className="text-gray-400 text-sm">{race.circuit} • {race.laps} laps</p>
                       </div>
                     </div>
                     <div className="flex items-center gap-4">
-                      <div className="text-right mr-4">
-                        <p className="text-blue-400 font-medium">{race.date}</p>
-                      </div>
+                      <div className="text-right mr-4"><p className="text-blue-400 font-medium">{race.date}</p></div>
                       <ChevronRight className="w-6 h-6 text-blue-400" />
                     </div>
                   </div>
@@ -605,93 +511,37 @@ const drivers = [
         {currentPage === 'races' && selectedRace && !raceFinished && (
           <div>
             <div className="mb-6 flex items-center justify-between">
-              <button
-                onClick={() => setSelectedRace(null)}
-                className="text-blue-400 hover:text-blue-300 transition"
-              >
-                ← Back to Races
-              </button>
-              {raceStarted && (
-                <button
-                  onClick={handleFinishRace}
-                  className="flex items-center gap-2 px-6 py-3 bg-green-600 text-white font-bold rounded-lg hover:bg-green-500 transition"
-                >
-                  <CheckCircle className="w-5 h-5" />
-                  Finish Race
-                </button>
-              )}
+              <button onClick={() => setSelectedRace(null)} className="text-blue-400 hover:text-blue-300 transition">← Back to Races</button>
+              {raceStarted && <button onClick={handleFinishRace} className="flex items-center gap-2 px-6 py-3 bg-green-600 text-white font-bold rounded-lg hover:bg-green-500 transition"><CheckCircle className="w-5 h-5" />Finish Race</button>}
             </div>
-
             <div className="bg-slate-800/90 backdrop-blur-lg rounded-2xl p-8 border border-blue-500/20 mb-6">
               <div className="flex items-center justify-between mb-4">
                 <div>
                   <h2 className="text-3xl font-bold text-white">{selectedRace.name}</h2>
                   <p className="text-gray-400">{selectedRace.circuit} • {selectedRace.date}</p>
                 </div>
-                {!raceStarted && (
-                  <button
-                    onClick={handleStartRace}
-                    className="flex items-center gap-2 px-6 py-3 bg-blue-600 text-white font-bold rounded-lg hover:bg-blue-500 transition"
-                  >
-                    <Play className="w-5 h-5" />
-                    Start Race Analysis
-                  </button>
-                )}
+                {!raceStarted && <button onClick={handleStartRace} className="flex items-center gap-2 px-6 py-3 bg-blue-600 text-white font-bold rounded-lg hover:bg-blue-500 transition"><Play className="w-5 h-5" />Start Race Analysis</button>}
               </div>
-
               {!raceStarted && (
                 <div className="grid md:grid-cols-2 gap-6 mt-6">
                   <div className="bg-slate-700/50 rounded-xl p-6">
                     <h3 className="text-xl font-bold text-white mb-4">Circuit Layout</h3>
                     <div className="bg-slate-600/50 rounded-lg p-4 h-64 flex items-center justify-center">
-                      <div className="text-center">
-                        <svg viewBox="0 0 300 200" className="w-full max-w-xs mx-auto">
-                          <path 
-                            d="M 50 100 Q 80 50 120 60 L 180 70 Q 220 80 240 120 L 230 160 Q 200 180 160 170 L 100 160 Q 60 150 50 100 Z" 
-                            fill="none" 
-                            stroke="#3b82f6" 
-                            strokeWidth="8"
-                            strokeLinecap="round"
-                          />
-                          <circle cx="50" cy="100" r="6" fill="#22c55e" />
-                          <text x="30" y="105" fill="#22c55e" fontSize="12" fontWeight="bold">START</text>
-                          <circle cx="120" cy="60" r="4" fill="#60a5fa" />
-                          <circle cx="240" cy="120" r="4" fill="#60a5fa" />
-                          <circle cx="160" cy="170" r="4" fill="#60a5fa" />
-                          <text x="150" y="30" fill="#60a5fa" fontSize="10">Turn 1</text>
-                          <text x="245" y="125" fill="#60a5fa" fontSize="10">Turn 7</text>
-                          <text x="165" y="190" fill="#60a5fa" fontSize="10">Turn 12</text>
-                        </svg>
-                        <p className="text-gray-400 text-sm mt-4">Simplified Circuit Map</p>
-                        <p className="text-blue-400 text-xs mt-1">Upload custom track image for detailed view</p>
+                      <div style={{display: 'none'}} className="text-center text-gray-400">
+                        <p>Track outline will appear here</p>
+                        <p className="text-xs mt-2">Place PNG in {selectedRace.trackimage}</p>
                       </div>
                     </div>
                   </div>
-
                   <div className="bg-slate-700/50 rounded-xl p-6">
                     <h3 className="text-xl font-bold text-white mb-4">Starting Grid</h3>
                     <div className="space-y-2 max-h-64 overflow-y-auto">
-                      {gridPositions.map((grid) => (
-                        <div 
-                          key={grid.position}
-                          className={`flex items-center justify-between p-3 rounded-lg ${
-                            grid.driver === 'A. Albon' || grid.driver === 'F. Colapinto'
-                              ? 'bg-blue-500/20 border border-blue-500/40'
-                              : 'bg-slate-600/50'
-                          }`}
-                        >
+                      {gridPositions.map(grid => (
+                        <div key={grid.position} className={`flex items-center justify-between p-3 rounded-lg ${grid.driver === 'A. Albon' || grid.driver === 'F. Colapinto' ? 'bg-blue-500/20 border border-blue-500/40' : 'bg-slate-600/50'}`}>
                           <div className="flex items-center gap-3">
-                            <div className="w-8 h-8 bg-slate-700 rounded flex items-center justify-center">
-                              <span className="text-white font-bold text-sm">{grid.position}</span>
-                            </div>
+                            <div className="w-8 h-8 bg-slate-700 rounded flex items-center justify-center"><span className="text-white font-bold text-sm">{grid.position}</span></div>
                             <div>
-                              <p className={`font-bold text-sm ${
-                                grid.driver === 'A. Albon' || grid.driver === 'F. Colapinto'
-                                  ? 'text-blue-400'
-                                  : 'text-white'
-                              }`}>
-                                {grid.driver}
-                              </p>
+                              <p className={`font-bold text-sm ${grid.driver === 'A. Albon' || grid.driver === 'F. Colapinto' ? 'text-blue-400' : 'text-white'}`}>{grid.driver}</p>
                               <p className="text-gray-400 text-xs">{grid.team}</p>
                             </div>
                           </div>
@@ -703,57 +553,21 @@ const drivers = [
                 </div>
               )}
             </div>
-
             {raceStarted && (
               <div className="grid grid-cols-12 gap-6">
-                <div className="col-span-3">
-                  <div className="bg-slate-800/90 backdrop-blur-lg rounded-2xl p-4 border border-blue-500/20 sticky top-4">
-                    <h3 className="text-lg font-bold text-white mb-4">Live Standings</h3>
-                    <div className="space-y-2 max-h-[600px] overflow-y-auto">
-                      {livePositions.map((pos) => (
-                        <div 
-                          key={pos.position}
-                          className={`flex items-center justify-between p-2 rounded-lg text-xs ${
-                            pos.driver === 'A. Albon' || pos.driver === 'A. Alle'
-                              ? 'bg-blue-500/20 border border-blue-500/40'
-                              : 'bg-slate-700/50'
-                          }`}
-                        >
-                          <div className="flex items-center gap-2">
-                            <span className="text-white font-bold w-6">{pos.position}</span>
-                            <div>
-                              <p className={`font-bold ${
-                                pos.driver === 'A. Albon' || pos.driver === 'A. Alle'
-                                  ? 'text-blue-400'
-                                  : 'text-white'
-                              }`}>
-                                {pos.driver}
-                              </p>
-                              <p className="text-gray-400 text-xs">{pos.team}</p>
-                            </div>
-                          </div>
-                          <span className="text-gray-400">{pos.interval}</span>
-                        </div>
-                      ))}
-                    </div>
-                  </div>
-                </div>
-
-                <div className="col-span-9 space-y-6">
+                <div className="col-span-12 space-y-6">
                   <div className="bg-slate-800/90 backdrop-blur-lg rounded-2xl p-6 border border-blue-500/20">
                     <h3 className="text-xl font-bold text-white mb-4">Race Track View</h3>
                     <div className="bg-slate-700/50 rounded-xl p-8 h-96 flex items-center justify-center">
-                      <p className="text-gray-400 text-center">
-                        Upload your race track component here<br/>
-                        Full width track visualization<br/>
-                        Real-time position tracking
-                      </p>
+                      <img src={selectedRace.trackimage} alt={`${selectedRace.name} Circuit`} className="max-h-full max-w-full object-contain" onError={(e) => { e.target.style.display = 'none'; e.target.nextSibling.style.display = 'block'; }} />
+                      <div style={{display: 'none'}} className="text-center text-gray-400">
+                        <p>Upload your race track component here</p>
+                        <p className="text-sm mt-2">Full width track visualization • Real-time position tracking</p>
+                      </div>
                     </div>
                   </div>
-
                   <div className="bg-slate-800/90 backdrop-blur-lg rounded-2xl p-6 border border-blue-500/20">
                     <h3 className="text-xl font-bold text-white mb-4">Live Strategy Feed</h3>
-                    
                     <div className="space-y-3 mb-4 max-h-60 overflow-y-auto">
                       {liveComments.map((comment, idx) => (
                         <div key={idx} className="bg-slate-700/50 rounded-lg p-4">
@@ -765,22 +579,9 @@ const drivers = [
                         </div>
                       ))}
                     </div>
-
                     <div className="flex gap-2">
-                      <input
-                        type="text"
-                        value={newComment}
-                        onChange={(e) => setNewComment(e.target.value)}
-                        onKeyPress={(e) => e.key === 'Enter' && handleAddComment()}
-                        placeholder="Add strategy feedback..."
-                        className="flex-1 px-4 py-2 bg-slate-700/50 border border-blue-500/30 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:border-blue-500"
-                      />
-                      <button
-                        onClick={handleAddComment}
-                        className="px-6 py-2 bg-blue-600 text-white font-medium rounded-lg hover:bg-blue-500 transition"
-                      >
-                        Add
-                      </button>
+                      <input type="text" value={newComment} onChange={(e) => setNewComment(e.target.value)} onKeyPress={(e) => e.key === 'Enter' && handleAddComment()} placeholder="Add strategy feedback..." className="flex-1 px-4 py-2 bg-slate-700/50 border border-blue-500/30 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:border-blue-500" />
+                      <button onClick={handleAddComment} className="px-6 py-2 bg-blue-600 text-white font-medium rounded-lg hover:bg-blue-500 transition">Add</button>
                     </div>
                   </div>
                 </div>
@@ -792,22 +593,12 @@ const drivers = [
         {currentPage === 'races' && selectedRace && raceFinished && (
           <div>
             <div className="mb-6">
-              <button
-                onClick={() => {
-                  setSelectedRace(null);
-                  setRaceFinished(false);
-                }}
-                className="text-blue-400 hover:text-blue-300 transition"
-              >
-                ← Back to Races
-              </button>
+              <button onClick={() => { setSelectedRace(null); setRaceFinished(false); }} className="text-blue-400 hover:text-blue-300 transition">← Back to Races</button>
             </div>
-
             <div className="bg-slate-800/90 backdrop-blur-lg rounded-2xl p-8 border border-blue-500/20 mb-6">
               <h2 className="text-3xl font-bold text-white mb-2">{selectedRace.name} - Race Summary</h2>
               <p className="text-gray-400">{selectedRace.circuit}</p>
             </div>
-
             <div className="grid md:grid-cols-3 gap-6 mb-6">
               <div className="bg-slate-800/90 backdrop-blur-lg rounded-xl p-6 border border-blue-500/20">
                 <p className="text-gray-400 text-sm mb-2">Final Position</p>
@@ -822,7 +613,6 @@ const drivers = [
                 <p className="text-4xl font-bold text-white">0</p>
               </div>
             </div>
-
             <div className="bg-slate-800/90 backdrop-blur-lg rounded-2xl p-6 border border-blue-500/20">
               <h3 className="text-xl font-bold text-white mb-4">Strategy Feedback Log</h3>
               <div className="space-y-3">
@@ -846,134 +636,131 @@ const drivers = [
               <h2 className="text-3xl font-bold text-white mb-2">Overall Feedback Log</h2>
               <p className="text-blue-400">Historical race analysis and configurations</p>
             </div>
-
             <div className="space-y-4">
-              <div className="bg-slate-800/90 backdrop-blur-lg rounded-2xl border border-blue-500/20 overflow-hidden">
-                <button
-                  onClick={() => setExpandedRaces({...expandedRaces, bahrain: !expandedRaces.bahrain})}
-                  className="w-full p-6 flex items-center justify-between hover:bg-slate-700/30 transition"
-                >
-                  <h3 className="text-2xl font-bold text-white">Bahrain Grand Prix</h3>
-                  <ChevronRight className={`w-6 h-6 text-blue-400 transition-transform ${expandedRaces.bahrain ? 'rotate-90' : ''}`} />
-                </button>
-                
-                {expandedRaces.bahrain && (
-                  <div className="p-6 pt-0">
-                    <div className="grid md:grid-cols-2 gap-6">
-                      <div>
-                        <h4 className="text-lg font-bold text-blue-400 mb-3">Race Feedback</h4>
-                        <div className="space-y-3">
-                          <div className="bg-slate-700/50 rounded-lg p-4">
-                            <p className="text-gray-400 text-xs mb-1">Lap 1-18</p>
-                            <p className="text-white text-sm">Starting on medium tires, good pace maintained. Clean first stint.</p>
-                          </div>
-                          <div className="bg-slate-700/50 rounded-lg p-4">
-                            <p className="text-gray-400 text-xs mb-1">Lap 19-38</p>
-                            <p className="text-white text-sm">Switched to hard tires. Strong middle stint, gained 2 positions through undercuts.</p>
-                          </div>
-                          <div className="bg-slate-700/50 rounded-lg p-4">
-                            <p className="text-gray-400 text-xs mb-1">Lap 39-57</p>
-                            <p className="text-white text-sm">Final stint on hard tires. Tire deg higher than expected. Consider earlier final stop.</p>
+              {[
+                {key: 'bahrain', name: 'Bahrain Grand Prix', track: '/tracks/bahrain.png', feedback: [
+                  {laps: 'Lap 1-18', text: 'Starting on medium tires, good pace maintained. Clean first stint.'},
+                  {laps: 'Lap 19-38', text: 'Switched to hard tires. Strong middle stint, gained 2 positions through undercuts.'},
+                  {laps: 'Lap 39-57', text: 'Final stint on hard tires. Tire deg higher than expected. Consider earlier final stop.'}
+                ]},
+                {key: 'saudi', name: 'Saudi Arabian Grand Prix', track: '/tracks/jeddah.png', feedback: [
+                  {laps: 'Lap 1-28', text: 'Started on hard tires, excellent tire management in opening stint.'},
+                  {laps: 'Lap 29-50', text: 'Changed to medium compound. Great pace, overtook 3 cars. Perfect strategy execution.'}
+                ]},
+                {key: 'australia', name: 'Australian Grand Prix', track: '/tracks/australia.png', feedback: [
+                  {laps: 'Lap 1-22', text: 'Medium compound start, solid pace maintaining position.'},
+                  {laps: 'Lap 23-44', text: 'Hard tires fitted. Front wing adjustment at Lap 28 improved balance significantly.'},
+                  {laps: 'Lap 45-58', text: 'Soft tires for final push. Great overtakes on Lap 34-36. Strong finish.'}
+                ]}
+              ].map(race => (
+                <div key={race.key} className="bg-slate-800/90 backdrop-blur-lg rounded-2xl border border-blue-500/20 overflow-hidden">
+                  <button onClick={() => setExpandedRaces({...expandedRaces, [race.key]: !expandedRaces[race.key]})} className="w-full p-6 flex items-center justify-between hover:bg-slate-700/30 transition">
+                    <h3 className="text-2xl font-bold text-white">{race.name}</h3>
+                    <ChevronRight className={`w-6 h-6 text-blue-400 transition-transform ${expandedRaces[race.key] ? 'rotate-90' : ''}`} />
+                  </button>
+                  {expandedRaces[race.key] && (
+                    <div className="p-6 pt-0">
+                      <div className="grid md:grid-cols-2 gap-6">
+                        <div>
+                          <h4 className="text-lg font-bold text-blue-400 mb-3">Race Feedback</h4>
+                          <div className="space-y-3">
+                            {race.feedback.map((fb, i) => (
+                              <div key={i} className="bg-slate-700/50 rounded-lg p-4">
+                                <p className="text-gray-400 text-xs mb-1">{fb.laps}</p>
+                                <p className="text-white text-sm">{fb.text}</p>
+                              </div>
+                            ))}
                           </div>
                         </div>
-                      </div>
-                      <div>
-                        <h4 className="text-lg font-bold text-blue-400 mb-3">Configuration Changes</h4>
-                        <div className="bg-slate-700/50 rounded-xl p-4">
-                          <p className="text-gray-400 text-center">
-                            Upload your race track component here<br/>
-                            This area will display the track visualization<br/>
-                            and grid positions for real-time analysis
-                          </p>
+                        <div>
+                          <h4 className="text-lg font-bold text-blue-400 mb-3">Track Layout</h4>
+                          <div className="bg-slate-700/50 rounded-xl p-4 flex items-center justify-center min-h-64">
+                            <img src={race.track} alt={`${race.name} Circuit`} className="max-h-64 object-contain" onError={(e) => { e.target.style.display = 'none'; e.target.nextSibling.style.display = 'block'; }} />
+                            <div style={{display: 'none'}} className="text-gray-400 text-center">
+                              <p>Track outline will appear here</p>
+                              <p className="text-xs mt-2">Place PNG in {race.track}</p>
+                            </div>
+                          </div>
                         </div>
                       </div>
                     </div>
-                  </div>
-                )}
-              </div>
+                  )}
+                </div>
+              ))}
+            </div>
+          </div>
+        )}
 
-              <div className="bg-slate-800/90 backdrop-blur-lg rounded-2xl border border-blue-500/20 overflow-hidden">
-                <button
-                  onClick={() => setExpandedRaces({...expandedRaces, saudi: !expandedRaces.saudi})}
-                  className="w-full p-6 flex items-center justify-between hover:bg-slate-700/30 transition"
-                >
-                  <h3 className="text-2xl font-bold text-white">Saudi Arabian Grand Prix</h3>
-                  <ChevronRight className={`w-6 h-6 text-blue-400 transition-transform ${expandedRaces.saudi ? 'rotate-90' : ''}`} />
-                </button>
-                
-                {expandedRaces.saudi && (
-                  <div className="p-6 pt-0">
-                    <div className="grid md:grid-cols-2 gap-6">
-                      <div>
-                        <h4 className="text-lg font-bold text-blue-400 mb-3">Race Feedback</h4>
-                        <div className="space-y-3">
-                          <div className="bg-slate-700/50 rounded-lg p-4">
-                            <p className="text-gray-400 text-xs mb-1">Lap 1-28</p>
-                            <p className="text-white text-sm">Started on hard tires, excellent tire management in opening stint.</p>
-                          </div>
-                          <div className="bg-slate-700/50 rounded-lg p-4">
-                            <p className="text-gray-400 text-xs mb-1">Lap 29-50</p>
-                            <p className="text-white text-sm">Changed to medium compound. Great pace, overtook 3 cars. Perfect strategy execution.</p>
-                          </div>
-                        </div>
-                      </div>
-                      <div>
-                        <h4 className="text-lg font-bold text-blue-400 mb-3">Configuration Changes</h4>
-                        <div className="bg-slate-700/50 rounded-xl p-4">
-                          <p className="text-gray-400 text-center">
-                            Upload your race track component here<br/>
-                            This area will display the track visualization<br/>
-                            and grid positions for real-time analysis
-                          </p>
-                        </div>
-                      </div>
+        {currentPage === 'recovery' && (
+          <div>
+            <div className="mb-8">
+              <h2 className="text-3xl font-bold text-white mb-2">Recovery & Performance</h2>
+              <p className="text-blue-400">Track your physical and mental readiness</p>
+            </div>
+            <div className="grid md:grid-cols-2 gap-6">
+              <div className="bg-slate-800/90 backdrop-blur-lg rounded-2xl p-8 border border-blue-500/20">
+                <h3 className="text-xl font-bold text-white mb-6">Recovery Metrics</h3>
+                <div className="space-y-4">
+                  <div className="bg-slate-700/50 rounded-xl p-4">
+                    <div className="flex items-center justify-between mb-2">
+                      <span className="text-gray-300">Sleep Quality</span>
+                      <span className="text-green-400 font-bold">85%</span>
+                    </div>
+                    <div className="w-full bg-slate-600 rounded-full h-2">
+                      <div className="bg-gradient-to-r from-green-500 to-green-400 h-2 rounded-full" style={{width: '85%'}}></div>
                     </div>
                   </div>
-                )}
+                  <div className="bg-slate-700/50 rounded-xl p-4">
+                    <div className="flex items-center justify-between mb-2">
+                      <span className="text-gray-300">Stress Level</span>
+                      <span className="text-yellow-400 font-bold">42%</span>
+                    </div>
+                    <div className="w-full bg-slate-600 rounded-full h-2">
+                      <div className="bg-gradient-to-r from-yellow-500 to-yellow-400 h-2 rounded-full" style={{width: '42%'}}></div>
+                    </div>
+                  </div>
+                  <div className="bg-slate-700/50 rounded-xl p-4">
+                    <div className="flex items-center justify-between mb-2">
+                      <span className="text-gray-300">Hydration</span>
+                      <span className="text-blue-400 font-bold">92%</span>
+                    </div>
+                    <div className="w-full bg-slate-600 rounded-full h-2">
+                      <div className="bg-gradient-to-r from-blue-500 to-blue-400 h-2 rounded-full" style={{width: '92%'}}></div>
+                    </div>
+                  </div>
+                </div>
               </div>
-
-              <div className="bg-slate-800/90 backdrop-blur-lg rounded-2xl border border-blue-500/20 overflow-hidden">
-                <button
-                  onClick={() => setExpandedRaces({...expandedRaces, australia: !expandedRaces.australia})}
-                  className="w-full p-6 flex items-center justify-between hover:bg-slate-700/30 transition"
-                >
-                  <h3 className="text-2xl font-bold text-white">Australian Grand Prix</h3>
-                  <ChevronRight className={`w-6 h-6 text-blue-400 transition-transform ${expandedRaces.australia ? 'rotate-90' : ''}`} />
-                </button>
-                
-                {expandedRaces.australia && (
-                  <div className="p-6 pt-0">
-                    <div className="grid md:grid-cols-2 gap-6">
+              <div className="bg-slate-800/90 backdrop-blur-lg rounded-2xl p-8 border border-blue-500/20">
+                <h3 className="text-xl font-bold text-white mb-6">Training Schedule</h3>
+                <div className="space-y-3">
+                  <div className="bg-slate-700/50 rounded-lg p-4">
+                    <div className="flex items-center justify-between">
                       <div>
-                        <h4 className="text-lg font-bold text-blue-400 mb-3">Race Feedback</h4>
-                        <div className="space-y-3">
-                          <div className="bg-slate-700/50 rounded-lg p-4">
-                            <p className="text-gray-400 text-xs mb-1">Lap 1-22</p>
-                            <p className="text-white text-sm">Medium compound start, solid pace maintaining position.</p>
-                          </div>
-                          <div className="bg-slate-700/50 rounded-lg p-4">
-                            <p className="text-gray-400 text-xs mb-1">Lap 23-44</p>
-                            <p className="text-white text-sm">Hard tires fitted. Front wing adjustment at Lap 28 improved balance significantly.</p>
-                          </div>
-                          <div className="bg-slate-700/50 rounded-lg p-4">
-                            <p className="text-gray-400 text-xs mb-1">Lap 45-58</p>
-                            <p className="text-white text-sm">Soft tires for final push. Great overtakes on Lap 34-36. Strong finish.</p>
-                          </div>
-                        </div>
+                        <p className="text-white font-bold">Cardio Session</p>
+                        <p className="text-gray-400 text-sm">Tomorrow, 7:00 AM</p>
                       </div>
-                      <div>
-                        <h4 className="text-lg font-bold text-blue-400 mb-3">Configuration Changes</h4>
-                        <div className="bg-slate-700/50 rounded-xl p-4">
-                          <p className="text-gray-400 text-center">
-                            Upload your race track component here<br/>
-                            This area will display the track visualization<br/>
-                            and grid positions for real-time analysis
-                          </p>
-                        </div>
-                      </div>
+                      <span className="text-green-400">✓</span>
                     </div>
                   </div>
-                )}
+                  <div className="bg-slate-700/50 rounded-lg p-4">
+                    <div className="flex items-center justify-between">
+                      <div>
+                        <p className="text-white font-bold">Simulator Practice</p>
+                        <p className="text-gray-400 text-sm">Tomorrow, 2:00 PM</p>
+                      </div>
+                      <span className="text-blue-400">→</span>
+                    </div>
+                  </div>
+                  <div className="bg-slate-700/50 rounded-lg p-4">
+                    <div className="flex items-center justify-between">
+                      <div>
+                        <p className="text-white font-bold">Strategy Review</p>
+                        <p className="text-gray-400 text-sm">Wed, 10:00 AM</p>
+                      </div>
+                      <span className="text-gray-400">○</span>
+                    </div>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
