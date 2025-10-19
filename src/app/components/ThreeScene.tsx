@@ -34,8 +34,8 @@ const ThreeScene: React.FC<{ labels?: Record<string, string> }> = ({ labels = {}
     // --- Container sizing ---
     const container = containerRef.current;
     container.style.position = 'relative';
-    container.style.width = '74vw';
-    container.style.height = '74vh';
+    container.style.width = '74vw'; //74vw
+    container.style.height = '74vh'; //74vh
     const width = container.clientWidth;
     const height = container.clientHeight;
 
