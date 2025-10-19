@@ -20,6 +20,8 @@ export default function Page() {
   const [expandedRaces, setExpandedRaces] = useState({});
   const [overlayLabels, setOverlayLabels] = useState({});
   const [fullConfig, setFullConfig] = useState(null);
+  const [recoveryAnalysis, setRecoveryAnalysis] = useState(null);
+  const [recoveryLoading, setRecoveryLoading] = useState(false);
   const [livePositions, setLivePositions] = useState([
     { position: 1, driver: 'M. Verstappen', team: 'Red Bull', interval: 'Leader' },
     { position: 2, driver: 'L. Norris', team: 'McLaren', interval: '+2.145' },
@@ -183,6 +185,19 @@ const drivers = [
     } catch (err) {
       console.error('Failed to download config:', err);
     }
+  };
+
+  const handleRecoveryAnalysis = () => {
+    setRecoveryLoading(true);
+    axios.get('http://127.0.0.1:5000/feedback').then((response) => {
+      const data = Array.isArray(response.data) ? response.data[0] : response.data;    // since backend gives data and status code
+      setRecoveryAnalysis(data);
+      setRecoveryLoading(false);
+      console.log('Recovery Analysis:', data);
+    }).catch((error) => {
+      console.error('Failed to fetch recovery analysis:', error);
+      setRecoveryLoading(false);
+    });
   };
 
   useEffect(() => {
@@ -1056,7 +1071,7 @@ const drivers = [
               <h2 className="text-3xl font-bold text-white mb-2">Recovery & Performance</h2>
               <p className="text-blue-400">Track your physical and mental readiness</p>
             </div>
-            <div className="grid md:grid-cols-2 gap-6">
+            <div className="grid md:grid-cols-2 gap-6 mb-6">
               <div className="bg-slate-800/90 backdrop-blur-lg rounded-2xl p-8 border border-blue-500/20">
                 <h3 className="text-xl font-bold text-white mb-6">Recovery Metrics</h3>
                 <div className="space-y-4">
@@ -1121,6 +1136,94 @@ const drivers = [
                   </div>
                 </div>
               </div>
+            </div>
+
+            <div className="bg-slate-800/90 backdrop-blur-lg rounded-2xl p-8 border border-blue-500/20">
+              <div className="flex items-center justify-between mb-6">
+                <div>
+                  <h3 className="text-xl font-bold text-white">AI Recovery Analysis</h3>
+                  <p className="text-gray-400 text-sm">Get personalized recovery recommendations</p>
+                </div>
+                <button
+                  onClick={handleRecoveryAnalysis}
+                  disabled={recoveryLoading}
+                  className="flex items-center gap-2 px-6 py-3 bg-blue-600 text-white font-bold rounded-lg hover:bg-blue-500 transition disabled:opacity-50 disabled:cursor-not-allowed"
+                >
+                  <Play className="w-5 h-5" />
+                  {recoveryLoading ? 'Analyzing...' : 'Start Recovery Analysis'}
+                </button>
+              </div>
+              {/* Metrics go here */}
+              {recoveryAnalysis && (
+                <div className="space-y-6"> 
+                  <div className="bg-slate-700/50 rounded-xl p-6">
+                    <h4 className="text-lg font-bold text-blue-400 mb-4">Key Physical Metrics</h4>
+                    <div className="grid md:grid-cols-2 gap-4">
+                      {recoveryAnalysis.key_metrics?.map((metric, idx) => (
+                        <div key={idx} className="bg-slate-800/50 rounded-lg p-4">
+                          <p className="text-gray-400 text-xs mb-1">{metric.metric}</p>
+                          <p className="text-white text-2xl font-bold">{metric.value}</p>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+
+                  {/*Recovery Plan goes here*/}
+                  <div className="bg-slate-700/50 rounded-xl p-6">
+                    <h4 className="text-lg font-bold text-blue-400 mb-4">Priority Recovery Plan</h4>
+                    <div className="space-y-4">
+                      {recoveryAnalysis.priority_recovery_plan?.map((plan, idx) => {
+                        const severityColors = {
+                          High: 'border-red-500/40 bg-red-500/10',
+                          Moderate: 'border-yellow-500/40 bg-yellow-500/10',
+                          Low: 'border-green-500/40 bg-green-500/10'
+                        };
+                        const severityTextColors = {
+                          High: 'text-red-400',
+                          Moderate: 'text-yellow-400',
+                          Low: 'text-green-400'
+                        };
+                        
+                        return (
+                          <div key={idx} className={`border-2 rounded-lg p-5 ${severityColors[plan.severity] || 'border-slate-600/40 bg-slate-800/50'}`}>
+                            <div className="flex items-start justify-between mb-3">
+                              <h5 className="text-white font-bold text-lg">{plan.focus_area}</h5>
+                              <span className={`px-3 py-1 rounded-full text-xs font-bold ${severityTextColors[plan.severity]} bg-slate-900/50`}>
+                                {plan.severity} Priority
+                              </span>
+                            </div>
+                            
+                            <div className="mb-4">
+                              <p className="text-gray-400 text-xs uppercase tracking-wider mb-2">Evidence</p>
+                              <p className="text-gray-300 text-sm leading-relaxed">{plan.evidence}</p>
+                            </div>
+                            
+                            <div className="bg-slate-900/50 rounded-lg p-4">
+                              <p className="text-gray-400 text-xs uppercase tracking-wider mb-2">Recommendation</p>
+                              <p className="text-white text-sm font-medium leading-relaxed">{plan.recommendation}</p>
+                            </div>
+                          </div>
+                        );
+                      })}
+                    </div>
+                  </div>
+
+                  {/* Track Info */}
+                  {recoveryAnalysis.track_name && (
+                    <div className="bg-slate-700/50 rounded-xl p-4 text-center">
+                      <p className="text-gray-400 text-sm">
+                        Analysis for: <span className="text-blue-400 font-semibold capitalize">{recoveryAnalysis.track_name.replace(/_/g, ' ')}</span>
+                      </p>
+                    </div>
+                  )}
+                </div>
+              )}
+
+              {!recoveryAnalysis && !recoveryLoading && (
+                <div className="bg-slate-700/50 rounded-xl p-8 text-center">
+                  <p className="text-gray-400">Click the button above to start your recovery analysis</p>
+                </div>
+              )}
             </div>
           </div>
         )}
